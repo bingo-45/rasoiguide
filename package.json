@@ -16,6 +16,7 @@
     "intent:eval": "tsx packages/voice/src/eval/run.ts",
     "fixtures:audio": "node scripts/generate-audio-fixtures.mjs",
     "photos:sync": "node scripts/download-licensed-photos.mjs",
+    "pages:prepare": "node scripts/prepare-pages.mjs",
     "e2e": "playwright test",
     "lighthouse": "node scripts/run-lighthouse.mjs",
     "lighthouse:ci": "lhci autorun",
