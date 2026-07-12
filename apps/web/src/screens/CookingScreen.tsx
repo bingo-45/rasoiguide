@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { HeardChip, RecipeVisual, Sheet, StepRoundel, VoicePill } from "../components";
+import { RecipeVisual, Sheet, StepRoundel } from "../components";
 import { saveDishCheck } from "../db";
 import { compareDishPhotos, readFileAsDataUrl, shrinkForStorage } from "../dishCheck";
 import { msg } from "../messages";
@@ -20,10 +20,8 @@ export function CookingScreen({
   onWhistle,
   onRecovery,
   onComplete,
-  onPushToTalkStart,
-  onPushToTalkEnd,
-  handsFree,
-  onHandsFreeToggle,
+  guideActive,
+  onGuideToggle,
   whistleDetectorStatus,
   onWhistleDetectorStart,
   onWhistleDetectorStop
@@ -41,10 +39,8 @@ export function CookingScreen({
   onWhistle: (delta?: number) => void;
   onRecovery: (id: string) => void;
   onComplete: () => void;
-  onPushToTalkStart: () => void;
-  onPushToTalkEnd: () => void;
-  handsFree: boolean;
-  onHandsFreeToggle: () => void;
+  guideActive: boolean;
+  onGuideToggle: () => void;
   whistleDetectorStatus: "off" | "requesting" | "warming" | "listening" | "whistle" | "error";
   onWhistleDetectorStart: () => void;
   onWhistleDetectorStop: () => void;
@@ -65,10 +61,17 @@ export function CookingScreen({
   }, [step.id, step.whistles]);
 
   useEffect(() => {
-    const openRecovery = () => setRecoveryOpen(true);
+    const openRecovery = (event: Event) => {
+      const detail = (event as CustomEvent<{ recoveryId?: string }>).detail;
+      if (detail?.recoveryId) {
+        const found = recipe.steps.flatMap((item) => item.recovery).find((item) => item.id === detail.recoveryId);
+        if (found) setSelectedRecovery(found);
+      }
+      setRecoveryOpen(true);
+    };
     window.addEventListener("rasoiguide:open-recovery", openRecovery);
     return () => window.removeEventListener("rasoiguide:open-recovery", openRecovery);
-  }, []);
+  }, [recipe.steps]);
 
   const timer = session.timer?.stepId === step.id ? session.timer : undefined;
   const riskLabel = step.risk === "high" ? "Stay close · high-attention step" : step.attention === "passive" ? "Hands free while this cooks" : "Active step";
@@ -77,9 +80,18 @@ export function CookingScreen({
   const recoveryChoices = useMemo(() => step.recovery.slice(0, 3), [step]);
   const referencePhotoId = step.photo ?? recipe.photo;
   const timerProgress = timer && timer.totalSec > 0 ? Math.max(0, Math.min(1, timer.remainingSec / timer.totalSec)) : 0;
+  const ambientUrl = referencePhotoId ? `${import.meta.env.BASE_URL}photos/thumbs/${referencePhotoId}.jpg` : undefined;
+
+  const guideLabel =
+    voiceState === "capturing" || voiceState === "armed" ? msg(language, "guideListening") :
+    voiceState === "speaking" ? msg(language, "guideSpeaking") :
+    voiceState === "transcribing" || voiceState === "resolving" ? msg(language, "guideThinking") :
+    voiceState === "error" ? msg(language, "noMic") :
+    msg(language, "tapForGuide");
 
   return (
     <main className={`cooking-page${session.paused ? " is-paused" : ""}`} id="main-content" data-cook-session-step={session.stepIndex} data-cook-step-id={step.id}>
+      {ambientUrl && <div className="ambient-photo" style={{ backgroundImage: `url(${ambientUrl})` }} aria-hidden="true" />}
       <header className="cook-topbar glass-region">
         <button className="cook-back" onClick={onBack} aria-label={msg(language, "back")}>←</button>
         <div>
@@ -117,68 +129,44 @@ export function CookingScreen({
 
             <div className="stage-frame-wrap">
               <RecipeVisual recipe={recipe} stage={step.stage} photo={step.photo} caption={`${msg(language, "howItShouldLook")} · ${msg(language, "realPhoto")}`} />
-            </div>
-
-            <div className="timer-panel glass-region" role="timer" aria-live={timer?.completed ? "assertive" : "off"}>
+              <button className="photo-check-button glass-region" onClick={() => setCheckOpen(true)} aria-label={msg(language, "checkMyDish")}>
+                <span className="camera-mark" aria-hidden="true"><i /></span>
+              </button>
               {timer ? (
-                <>
-                  <span className={`timer-dial${timer.completed ? " is-complete" : ""}`} style={{ "--timer-progress": `${timerProgress * 360}deg` } as React.CSSProperties}>
-                    <b>{displayNumber(formatTime(timer.remainingSec), language, Boolean(preferences.devanagariNumerals))}</b>
-                  </span>
-                  <div className="timer-panel__copy">
-                    <strong>{timer.completed ? msg(language, "timerDone") : msg(language, "timerRunning")}</strong>
-                    <small>{localText(step.cue, language)}</small>
-                  </div>
-                </>
+                <div className={`photo-timer glass-region${timer.completed ? " is-complete" : ""}`} role="timer" aria-live={timer.completed ? "assertive" : "off"} style={{ "--timer-progress": `${timerProgress * 360}deg` } as React.CSSProperties}>
+                  <span className="timer-dial"><b>{displayNumber(formatTime(timer.remainingSec), language, Boolean(preferences.devanagariNumerals))}</b></span>
+                  <small>{timer.completed ? msg(language, "timerDone") : msg(language, "timerRunning")}</small>
+                </div>
               ) : (
-                <>
-                  {step.durationSec ? (
-                    <button className="timer-main-start" onClick={() => onTimer(step.durationSec!, step.id)}>
-                      <span className="timer-dial"><b>{displayNumber(formatTime(step.durationSec), language, Boolean(preferences.devanagariNumerals))}</b></span>
-                      <span>{msg(language, "addTimer", { count: Math.ceil(step.durationSec / 60) })}</span>
-                    </button>
-                  ) : (
-                    <div className="timer-panel__copy"><strong>{msg(language, "quickTimer")}</strong><small>{localText(step.cue, language)}</small></div>
-                  )}
-                  <div className="quick-timer-row" aria-label={msg(language, "quickTimer")}>
-                    {[1, 5, 10].map((minutes) => (
-                      <button key={minutes} onClick={() => onTimer(minutes * 60, step.id)}>+{minutes} {msg(language, "minShort")}</button>
-                    ))}
-                  </div>
-                </>
+                <div className="photo-timer photo-timer--quick glass-region" role="group" aria-label={msg(language, "quickTimer")}>
+                  {[1, 5, 10].map((minutes) => (
+                    <button key={minutes} onClick={() => onTimer(minutes * 60, step.id)}>+{minutes}</button>
+                  ))}
+                  <small>{msg(language, "quickTimer")}</small>
+                </div>
               )}
             </div>
 
-            <div className="cook-utility-rail glass-region">
-              <button className="utility-item" aria-label={`${msg(language, "flame", { level: step.flame })}: ${flameInstruction(preferences.stove, step.flame, language)}`}>
-                <span className="flame-mark" aria-hidden="true"><i /></span>
-                <span><small>{msg(language, "flame", { level: step.flame })}</small><strong>{flameInstruction(preferences.stove, step.flame, language)}</strong></span>
-              </button>
-              <span className="utility-divider" />
-              <button className="utility-item" onClick={() => setCheckOpen(true)}>
-                <span className="camera-mark" aria-hidden="true"><i /></span>
-                <span><small>{msg(language, "checkMyDish")}</small><strong>{msg(language, "referenceDish")}</strong></span>
-              </button>
-            </div>
-
-            {step.cookware && <p className="cookware-note"><strong>{msg(language, "cookware")}:</strong> {localText(step.cookware, language)}</p>}
+            <p className="step-meta">
+              <span className="flame-mark" aria-hidden="true"><i /></span>
+              <strong>{msg(language, "flame", { level: step.flame })}</strong> · {flameInstruction(preferences.stove, step.flame, language)}
+              {step.cookware && <> · {localText(step.cookware, language)}</>}
+            </p>
 
             {step.whistles && (
-              <button className={`whistle-inline${whistleComplete ? " is-complete" : ""}`} onClick={() => setWhistleOpen(true)}>
+              <button className={`whistle-inline glass-region${whistleComplete ? " is-complete" : ""}`} onClick={() => setWhistleOpen(true)}>
                 <span className="whistle-rings" aria-hidden="true"><i /><i /></span>
                 <span><small>{msg(language, "whistleTitle")}</small><strong>{session.whistleCount} / {step.whistles.count} {msg(language, "whistleStatus")}</strong></span>
                 <b>{whistleComplete ? "✓" : "Open"}</b>
               </button>
             )}
 
-            <div className="voice-row">
-              <VoicePill state={voiceState} language={language} />
-              <button className={`hands-free-toggle glass-region${handsFree ? " is-on" : ""}`} onClick={onHandsFreeToggle} aria-pressed={handsFree}>
-                <span className="ptt-mark" aria-hidden="true"><i /></span>
-                <span>{msg(language, "handsFree")} {handsFree ? "ON" : "OFF"}</span>
-              </button>
-            </div>
-            {heard && Date.now() - heard.at < 5000 && <HeardChip transcript={heard.transcript} intent={heard.intent} language={language} />}
+            {heard && Date.now() - heard.at < 12000 && (
+              <div className="guide-reply glass-region" role="status">
+                <small>“{heard.transcript}”</small>
+                <strong>{heard.intent}</strong>
+              </div>
+            )}
           </section>
 
           <div className="cook-action-dock glass-region">
@@ -186,16 +174,13 @@ export function CookingScreen({
               <span aria-hidden="true">←</span><small>{msg(language, "back")}</small>
             </button>
             <button
-              className={`ptt-button${voiceState === "capturing" ? " is-listening" : ""}`}
-              onPointerDown={onPushToTalkStart}
-              onPointerUp={onPushToTalkEnd}
-              onPointerCancel={onPushToTalkEnd}
-              onKeyDown={(event) => event.key === " " && onPushToTalkStart()}
-              onKeyUp={(event) => event.key === " " && onPushToTalkEnd()}
-              aria-label={msg(language, "pushToTalk")}
+              className={`guide-button${guideActive ? " is-on" : ""}${voiceState === "capturing" || voiceState === "armed" ? " is-listening" : ""}`}
+              onClick={onGuideToggle}
+              aria-pressed={guideActive}
+              aria-label={msg(language, "handsFree")}
             >
               <span className="ptt-mark" aria-hidden="true"><i /></span>
-              <small>{msg(language, "pushToTalk")}</small>
+              <small>{guideActive ? guideLabel : msg(language, "tapForGuide")}</small>
             </button>
             <button className="trouble-button" onClick={() => setRecoveryOpen(true)}>
               <span className="trouble-mark" aria-hidden="true">!</span>
@@ -229,10 +214,6 @@ export function CookingScreen({
               {selectedRecovery.question && <div className="clarifying-question"><small>Check this first</small><strong>{localText(selectedRecovery.question, language)}</strong></div>}
               <p>{localText(selectedRecovery.fix, language)}</p>
               {selectedRecovery.patch && <div className="step-patch">{localText(selectedRecovery.patch, language)}</div>}
-              <div className="recovery-stage-pair">
-                <div><RecipeVisual recipe={recipe} compact photo={step.photo} /><small>Still recoverable</small></div>
-                <div><RecipeVisual recipe={recipe} compact /><small>Adjust the recipe</small></div>
-              </div>
               <button className="primary-cta" onClick={() => {
                 onRecovery(selectedRecovery.id);
                 setRecoveryOpen(false);

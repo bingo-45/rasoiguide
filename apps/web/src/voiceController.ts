@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { createDefaultIntentClassifier } from "@rasoiguide/voice";
 import type { Language } from "./model";
 
 type CommandIntent =
@@ -113,11 +112,19 @@ const fallbackResolveCommand = (transcript: string): { intent: CommandIntent; co
   };
 };
 
-const semanticClassifier = createDefaultIntentClassifier({ threshold: 0.62, topK: 3 });
+// The semantic classifier (embedder + corpus) loads on first spoken command,
+// keeping it out of the boot-critical bundle.
+let semanticClassifierPromise: Promise<{ classify: (transcript: string) => Promise<{ status: string; intent: CommandIntent; confidence: number; candidates: Array<{ intent: CommandIntent; score: number }> }> }> | undefined;
+const getSemanticClassifier = () => {
+  semanticClassifierPromise ??= import("@rasoiguide/voice").then((module) =>
+    module.createDefaultIntentClassifier({ threshold: 0.62, topK: 3 }) as never
+  );
+  return semanticClassifierPromise;
+};
 
 export const resolveCommand = async (transcript: string): Promise<{ intent: CommandIntent; confidence: number; alternatives: CommandIntent[] }> => {
   try {
-    const result = await semanticClassifier.classify(transcript);
+    const result = await (await getSemanticClassifier()).classify(transcript);
     if (result.status === "resolved") {
       return {
         intent: result.intent,
@@ -244,7 +251,11 @@ export function useVoiceController({ language, disabled, onState, onResolved }: 
     utterance.lang = language === "en" ? "en-IN" : "hi-IN";
     utterance.rate = 0.93;
     utterance.pitch = 0.96;
+    let finished = false;
     const done = () => {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(watchdog);
       speaking.current = false;
       if (handsFreeRef.current) {
         // Mic stays off while speaking (no self-triggering), then re-arms.
@@ -255,6 +266,8 @@ export function useVoiceController({ language, disabled, onState, onResolved }: 
         onState("armed");
       }
     };
+    // Some engines never fire onend; never let a stuck TTS freeze the guide.
+    const watchdog = window.setTimeout(done, Math.min(20000, 2500 + text.length * 90));
     utterance.onend = done;
     utterance.onerror = done;
     window.speechSynthesis.cancel();

@@ -84,20 +84,33 @@ export function BottomNav({ view, language, navigate }: { view: View; language: 
   );
 }
 
-export function RecipeVisual({ recipe, stage, compact = false, photo, caption }: { recipe: RecipeCard; stage?: string; compact?: boolean; photo?: string; caption?: string }) {
+export function RecipeVisual({ recipe, stage, compact = false, photo, caption, preferThumb = false }: { recipe: RecipeCard; stage?: string; compact?: boolean; photo?: string; caption?: string; preferThumb?: boolean }) {
   const photoId = photo ?? recipe.photo;
   const style = {
     "--food-light": recipe.palette[0],
     "--food-dark": recipe.palette[1]
   } as CSSProperties;
   if (photoId) {
+    const fullSrc = `${import.meta.env.BASE_URL}photos/${photoId}.jpg`;
+    const thumbSrc = `${import.meta.env.BASE_URL}photos/thumbs/${photoId}.jpg`;
+    const useThumb = compact || preferThumb;
     return (
       <figure className={`recipe-photo${compact ? " recipe-photo--compact" : ""}`} style={style}>
         <img
-          src={`${import.meta.env.BASE_URL}photos/${photoId}.jpg`}
+          src={useThumb ? thumbSrc : fullSrc}
           alt={`${recipe.title.en}: ${caption ?? stage ?? "finished dish"}`}
           loading={compact ? "lazy" : "eager"}
-          onError={(event) => { (event.currentTarget.parentElement as HTMLElement).classList.add("is-missing"); }}
+          fetchPriority={compact ? undefined : "high"}
+          decoding="async"
+          onError={(event) => {
+            const image = event.currentTarget;
+            // Thumbs are derived assets; fall back to the full photo before giving up.
+            if (useThumb && image.src.includes("/thumbs/")) {
+              image.src = fullSrc;
+              return;
+            }
+            (image.parentElement as HTMLElement).classList.add("is-missing");
+          }}
         />
         <span className="recipe-photo__sheen" aria-hidden="true" />
         {!compact && <figcaption className="stage-label">{caption ?? `Real photo · ${stage ?? "finished dish"}`}</figcaption>}

@@ -1,4 +1,6 @@
 import type { LocalText, RecipeCard } from "../model";
+import { extraRecipes } from "./recipesExtra";
+import { nonVegRecipes } from "./recipesNonVeg";
 import { northIndianRecipes } from "./recipesNorth";
 
 const t = (en: string, hi: string, hiLatn: string): LocalText => ({ en, hi, "hi-Latn": hiLatn });
@@ -43,7 +45,7 @@ const coreRecipes: RecipeCard[] = [
         text: t("Rinse the dal, then add it to the cooker with water, turmeric and half the salt.", "दाल धोकर कुकर में पानी, हल्दी और आधा नमक डालें।", "Dal dho kar cooker mein paani, haldi aur aadha namak daalo."),
         spoken: t("Rinsed dal goes into the cooker now, with water, turmeric and half the salt.", "धुली दाल कुकर में डालें—साथ में पानी, हल्दी और आधा नमक।", "Dhuli dal cooker mein daal do—saath mein paani, haldi aur aadha namak."),
         cue: t("The water should sit about two fingers above the dal.", "पानी दाल से करीब दो उँगली ऊपर रहे।", "Paani dal se kareeb do ungli upar rahe."),
-        photo: "stage-dal-rinse",
+        photo: "raw-toor-dal",
         attention: "active",
         risk: "normal",
         flame: 1,
@@ -75,7 +77,7 @@ const coreRecipes: RecipeCard[] = [
         text: t("Switch off. Let the pressure release naturally for 8 minutes before opening.", "आँच बंद करें। खोलने से पहले 8 मिनट दबाव अपने आप निकलने दें।", "Aanch band karo. Kholne se pehle 8 minute pressure naturally nikalne do."),
         spoken: t("Flame off. Ab cooker ko aath minute bilkul chhedna nahi—pressure apne aap niklega.", "आँच बंद। अब कुकर को आठ मिनट बिल्कुल न छेड़ें—दबाव अपने आप निकलेगा।", "Flame off. Ab cooker ko aath minute bilkul chhedna nahi—pressure apne aap niklega."),
         cue: t("The pressure pin must drop fully before the lid moves.", "ढक्कन घुमाने से पहले प्रेशर पिन पूरी तरह नीचे हो।", "Lid ghumane se pehle pressure pin poora neeche ho."),
-        photo: "stage-pressure-cooker",
+        photo: "stage-dal-release",
         durationSec: 480,
         attention: "passive",
         risk: "high",
@@ -90,7 +92,7 @@ const coreRecipes: RecipeCard[] = [
         text: t("Open safely, whisk the dal smooth, then simmer with tomato and green chilli.", "सुरक्षित ढंग से खोलें, दाल फेंटें, फिर टमाटर और हरी मिर्च के साथ उबालें।", "Safe tareeke se kholo, dal ko whisk karo, phir tamatar aur hari mirchi ke saath simmer karo."),
         spoken: t("Pin is down? Great. Open away from your face, whisk the dal, then add tomato and green chilli.", "पिन नीचे है? बढ़िया। चेहरा दूर रखकर खोलें, दाल फेंटें, फिर टमाटर और हरी मिर्च डालें।", "Pin neeche hai? Badhiya. Face se door khol kar dal whisk karo, phir tamatar aur hari mirchi daalo."),
         cue: t("The dal should coat the spoon but still pour easily.", "दाल चम्मच पर चढ़े, पर आसानी से बह भी जाए।", "Dal spoon ko coat kare, par aasani se pour bhi ho."),
-        photo: "stage-dal-cooked",
+        photo: "prepared-dal",
         durationSec: 360,
         attention: "active",
         risk: "normal",
@@ -107,7 +109,7 @@ const coreRecipes: RecipeCard[] = [
         text: t("Heat ghee in the tadka pan on medium flame. Add cumin.", "तड़का पैन में मध्यम आँच पर घी गरम करें। जीरा डालें।", "Tadka pan mein medium aanch par ghee garam karo. Jeera daalo."),
         spoken: t("Tadka time. Medium flame, ghee in the small pan, then jeera. Crackle is the cue—not smoke.", "अब तड़का। छोटी पैन, मध्यम आँच, घी और फिर जीरा। चटकना चाहिए, धुआँ नहीं।", "Ab tadka. Chhota pan, medium aanch, ghee aur phir jeera. Chatakna chahiye, smoke nahi."),
         cue: t("Cumin should crackle in 3–5 seconds without darkening at once.", "जीरा 3–5 सेकंड में चटके, तुरंत काला न हो।", "Jeera 3–5 second mein chatke, turant kaala na ho."),
-        photo: "stage-jeera-fry",
+        photo: "chaunk",
         durationSec: 20,
         attention: "active",
         risk: "high",
@@ -141,7 +143,7 @@ const coreRecipes: RecipeCard[] = [
         text: t("Pour the hot tadka over the simmering dal. Cover for 30 seconds, then stir.", "गरम तड़का उबलती दाल पर डालें। 30 सेकंड ढकें, फिर मिलाएँ।", "Garam tadka simmering dal par daalo. 30 second dhako, phir milao."),
         spoken: t("Pour the tadka over the dal—carefully, it may splutter. Cover for thirty seconds so the aroma stays in.", "तड़का दाल पर सावधानी से डालें—छींटे आ सकते हैं। खुशबू रोकने के लिए तीस सेकंड ढक दें।", "Tadka dal par carefully daalo—splutter ho sakta hai. Khushbu ke liye 30 second cover karo."),
         cue: t("The surface should shimmer with red-gold ghee and cumin.", "ऊपर लाल-सुनहरे घी और जीरे की चमक दिखे।", "Upar red-golden ghee aur jeera ki shine dikhe."),
-        photo: "dal-tadka",
+        photo: "dal-after-tadka",
         durationSec: 30,
         attention: "active",
         risk: "high",
@@ -189,7 +191,7 @@ const coreRecipes: RecipeCard[] = [
       { id: "ghee", name: t("Ghee", "घी", "Ghee"), qty: 15, unit: "g", prep: t("measured", "नापा हुआ", "naapa hua"), curve: "linear" }
     ],
     steps: [
-      { id: "bloom", n: 1, text: t("Heat ghee and crackle cumin.", "घी गरम करके जीरा चटकाएँ।", "Ghee garam karke jeera chatkao."), spoken: t("Medium flame. Ghee, then cumin—wait for the crackle.", "मध्यम आँच। घी, फिर जीरा—चटकने दें।", "Medium flame. Ghee, phir jeera—chatakne do."), cue: t("A nutty aroma without smoke.", "भुनी खुशबू, धुआँ नहीं।", "Nutty khushbu, smoke nahi."), photo: "stage-tadka", durationSec: 25, attention: "active", risk: "high", checkInIntervalSec: 15, flame: 3, stage: "temper", recovery: [{ id: "burn", failure: t("Cumin burned", "जीरा जल गया", "Jeera jal gaya"), fix: t("Restart with fresh ghee on lower flame.", "नए घी से कम आँच पर फिर शुरू करें।", "Fresh ghee se lower flame par restart karo.") }] },
+      { id: "bloom", n: 1, text: t("Heat ghee and crackle cumin.", "घी गरम करके जीरा चटकाएँ।", "Ghee garam karke jeera chatkao."), spoken: t("Medium flame. Ghee, then cumin—wait for the crackle.", "मध्यम आँच। घी, फिर जीरा—चटकने दें।", "Medium flame. Ghee, phir jeera—chatakne do."), cue: t("A nutty aroma without smoke.", "भुनी खुशबू, धुआँ नहीं।", "Nutty khushbu, smoke nahi."), photo: "stage-jeera-fry", durationSec: 25, attention: "active", risk: "high", checkInIntervalSec: 15, flame: 3, stage: "temper", recovery: [{ id: "burn", failure: t("Cumin burned", "जीरा जल गया", "Jeera jal gaya"), fix: t("Restart with fresh ghee on lower flame.", "नए घी से कम आँच पर फिर शुरू करें।", "Fresh ghee se lower flame par restart karo.") }] },
       { id: "simmer", n: 2, text: t("Add drained rice, water and salt. Bring to a boil, then cover on low.", "छने चावल, पानी और नमक डालें। उबाल आने पर ढककर धीमी आँच करें।", "Drained chawal, paani aur namak daalo. Boil aaye toh cover karke low karo."), spoken: t("Rice and water in. One boil, then lid on and flame low.", "चावल और पानी डालें। एक उबाल, फिर ढक्कन और धीमी आँच।", "Rice aur water in. Ek boil, phir lid aur low flame."), cue: t("Small steam holes appear across the surface.", "ऊपर छोटे भाप के छेद दिखें।", "Surface par chhote steam holes dikhein."), photo: "stage-rice-cooked", durationSec: 720, attention: "passive", risk: "normal", flame: 2, stage: "simmer", recovery: [{ id: "dry", failure: t("Rice looks dry too soon", "चावल जल्दी सूखे लग रहे हैं", "Rice jaldi dry lag raha hai"), fix: t("Sprinkle 2 tablespoons hot water, cover, and keep the lowest flame.", "2 बड़े चम्मच गरम पानी छिड़कें, ढकें और सबसे धीमी आँच रखें।", "2 tbsp garam paani sprinkle karo, cover karke lowest flame rakho.") }] },
       { id: "rest", n: 3, text: t("Switch off and rest covered for 8 minutes. Fluff gently.", "आँच बंद करके 8 मिनट ढका रहने दें। हल्के हाथ से खोलें।", "Flame off karke 8 minute covered rest. Halke haath fluff karo."), spoken: t("Flame off. Don’t peek for eight minutes; the steam is finishing the grains.", "आँच बंद। आठ मिनट ढक्कन न खोलें; भाप चावल पूरा करेगी।", "Flame off. Aath minute mat kholo; steam grains finish karegi."), cue: t("Long separate grains, no water at the bottom.", "लंबे खिले दाने, नीचे पानी नहीं।", "Long separate grains, bottom mein paani nahi."), photo: "jeera-rice", durationSec: 480, attention: "passive", risk: "normal", flame: 1, stage: "rest", recovery: [{ id: "sticky", failure: t("Rice is sticky", "चावल चिपचिपे हैं", "Rice sticky hai"), fix: t("Spread gently on a wide plate for 3 minutes; do not keep stirring.", "चौड़ी प्लेट पर 3 मिनट हल्का फैला दें; बार-बार न चलाएँ।", "Wide plate par 3 minute gently spread karo; baar-baar mat chalao.") }] }
     ]
@@ -216,12 +218,12 @@ const coreRecipes: RecipeCard[] = [
     ],
     steps: [
       { id: "potato", n: 1, text: t("Brown potatoes in hot oil on medium-high flame.", "गरम तेल में आलू मध्यम-तेज़ आँच पर भूनें।", "Garam tel mein aloo medium-high par bhuno."), spoken: t("Potatoes first. Let one side brown before moving them.", "पहले आलू। एक तरफ़ रंग आने दें, फिर चलाएँ।", "Pehle aloo. Ek side brown hone do, phir chalao."), cue: t("Golden patches on at least two sides.", "कम से कम दो तरफ़ सुनहरे निशान।", "Kam se kam do sides golden patches."), photo: "stage-aloo-fry", durationSec: 420, attention: "active", risk: "high", checkInIntervalSec: 60, flame: 4, stage: "temper", recovery: [{ id: "stick", failure: t("Potatoes are sticking", "आलू चिपक रहे हैं", "Aloo chipak rahe hain"), fix: t("Lower the flame, add one teaspoon oil around the edge, and wait 30 seconds before lifting.", "आँच कम करें, किनारे से एक चम्मच तेल डालें और उठाने से पहले 30 सेकंड रुकें।", "Flame low karo, edge se 1 tsp oil aur lift karne se pehle 30 second wait.") }] },
-      { id: "gobi", n: 2, text: t("Add cauliflower and spices. Cover on medium-low, stirring gently twice.", "गोभी और मसाले डालें। मध्यम-धीमी आँच पर ढकें, दो बार हल्के चलाएँ।", "Gobhi aur masale daalo. Medium-low par cover, do baar gently chalao."), spoken: t("Gobhi and spices in. Cover it; we’ll turn it only twice so the florets stay whole.", "गोभी और मसाले डालें। ढकें; सिर्फ़ दो बार चलाएँ ताकि फूल साबुत रहें।", "Gobhi aur masale in. Cover; sirf do baar chalaenge taaki florets whole rahein."), cue: t("A knife enters the potato with slight resistance.", "चाकू आलू में हल्के दबाव से जाए।", "Knife aloo mein halki resistance se jaaye."), photo: "aloo-gobi", durationSec: 720, attention: "passive", risk: "normal", flame: 2, stage: "simmer", recovery: [{ id: "mushy", failure: t("Cauliflower is breaking", "गोभी टूट रही है", "Gobhi toot rahi hai"), fix: t("Stop stirring. Cook uncovered for the remaining time so moisture escapes.", "चलाना बंद करें। बचा समय बिना ढक्कन पकाएँ ताकि नमी निकले।", "Stir mat karo. Baaki time uncovered cook karo taaki moisture nikle.") }] },
+      { id: "gobi", n: 2, text: t("Add cauliflower and spices. Cover on medium-low, stirring gently twice.", "गोभी और मसाले डालें। मध्यम-धीमी आँच पर ढकें, दो बार हल्के चलाएँ।", "Gobhi aur masale daalo. Medium-low par cover, do baar gently chalao."), spoken: t("Gobhi and spices in. Cover it; we’ll turn it only twice so the florets stay whole.", "गोभी और मसाले डालें। ढकें; सिर्फ़ दो बार चलाएँ ताकि फूल साबुत रहें।", "Gobhi aur masale in. Cover; sirf do baar chalaenge taaki florets whole rahein."), cue: t("A knife enters the potato with slight resistance.", "चाकू आलू में हल्के दबाव से जाए।", "Knife aloo mein halki resistance se jaaye."), photo: "stage-chopped-veg", durationSec: 720, attention: "passive", risk: "normal", flame: 2, stage: "simmer", recovery: [{ id: "mushy", failure: t("Cauliflower is breaking", "गोभी टूट रही है", "Gobhi toot rahi hai"), fix: t("Stop stirring. Cook uncovered for the remaining time so moisture escapes.", "चलाना बंद करें। बचा समय बिना ढक्कन पकाएँ ताकि नमी निकले।", "Stir mat karo. Baaki time uncovered cook karo taaki moisture nikle.") }] },
       { id: "finish", n: 3, text: t("Uncover, raise the flame for 2 minutes, and finish with coriander.", "ढक्कन हटाकर 2 मिनट आँच तेज़ करें और धनिया डालें।", "Uncover karke 2 minute flame high karo, phir dhaniya."), spoken: t("Last two minutes uncovered on high—just enough for those roasted edges.", "अंत के दो मिनट बिना ढक्कन तेज़ आँच—बस भुने किनारों के लिए।", "Last do minute uncovered high—bas roasted edges ke liye."), cue: t("Dry pan, browned edges, tender centres.", "पैन सूखी, किनारे भुने, अंदर नरम।", "Pan dry, edges bhune, centre tender."), photo: "aloo-gobi", durationSec: 120, attention: "active", risk: "high", checkInIntervalSec: 45, flame: 4, stage: "finish", recovery: [{ id: "dry", failure: t("The spices look dry and powdery", "मसाले सूखे और पाउडर जैसे हैं", "Masale dry aur powdery lag rahe hain"), fix: t("Sprinkle one tablespoon water around the edge, toss once, and cover for one minute.", "किनारे से एक बड़ा चम्मच पानी छिड़कें, एक बार मिलाएँ और एक मिनट ढकें।", "Edge se 1 tbsp water sprinkle karo, ek toss aur 1 minute cover.") }] }
     ]
   }
 ];
 
-export const recipes: RecipeCard[] = [...coreRecipes, ...northIndianRecipes];
+export const recipes: RecipeCard[] = [...coreRecipes, ...northIndianRecipes, ...extraRecipes, ...nonVegRecipes];
 
 export const recipeById = (id: string): RecipeCard => recipes.find((recipe) => recipe.id === id) ?? recipes[0]!;

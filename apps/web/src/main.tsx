@@ -10,7 +10,13 @@ import { registerSW } from "virtual:pwa-register";
 import { App } from "./App";
 import "./styles.css";
 
-registerSW({ immediate: true });
+// Register the service worker only after the first paint has settled so the
+// ~2 MB precache never competes with hero photos and fonts on slow networks.
+const registerWhenIdle = () => {
+  window.setTimeout(() => registerSW({ immediate: true }), 6000);
+};
+if (document.readyState === "complete") registerWhenIdle();
+else window.addEventListener("load", registerWhenIdle, { once: true });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -2411,14 +2411,12 @@ p {
   .cooking-stage .step-heading,
   .cooking-stage > h1,
   .cooking-stage > .doneness-cue,
-  .cooking-stage > .cookware-note,
+  .cooking-stage > .step-meta,
   .cooking-stage > .whistle-inline,
-  .cooking-stage > .voice-pill,
-  .cooking-stage > .heard-chip { grid-column: 1; }
-  .stage-frame-wrap { grid-column: 2; grid-row: 1 / span 5; }
-  .cook-utility-rail { grid-column: 2; grid-row: 6 / span 2; }
-  .timer-finished { grid-column: 2; }
+  .cooking-stage > .guide-reply { grid-column: 1; }
+  .stage-frame-wrap { grid-column: 2; grid-row: 1 / span 6; }
   .cooking-stage > h1 { align-self: start; }
+  .cooking-stage > .guide-reply { margin-inline: 0; }
 }
 
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
@@ -2770,6 +2768,141 @@ p {
 .credits-list a { color: var(--terracotta); font-weight: 600; text-decoration: none; }
 .credits-list a:hover { text-decoration: underline; }
 .credits-list span { color: var(--ink-muted); font-size: 0.82rem; overflow-wrap: anywhere; }
+
+/* --- v2.2: ambient photo backdrop makes the glass actually refract --- */
+.ambient-photo {
+  position: fixed;
+  inset: -40px;
+  z-index: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  filter: blur(52px) saturate(1.35) brightness(0.55);
+  opacity: 0.55;
+  transition: background-image 400ms ease;
+}
+
+.cooking-page { position: relative; isolation: isolate; }
+.cooking-page > *:not(.ambient-photo) { position: relative; z-index: 1; }
+
+/* Timer lives on the photo — impossible to miss */
+.photo-timer {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px 10px 10px;
+  border-radius: 999px;
+}
+
+.photo-timer .timer-dial { width: 76px; height: 76px; }
+.photo-timer .timer-dial b { font-size: 1.12rem; }
+.photo-timer > small { max-width: 180px; color: var(--cream); font-weight: 600; line-height: 1.2; }
+.photo-timer.is-complete { animation: donePulse 1.5s ease-in-out 2; }
+.photo-timer.is-complete > small { color: var(--mustard); }
+
+.photo-timer--quick { padding: 8px 14px; gap: 7px; }
+.photo-timer--quick button {
+  min-width: 52px;
+  min-height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  color: var(--cream);
+  font-weight: 700;
+  background: rgba(67, 27, 24, 0.45);
+}
+.photo-timer--quick button:hover { color: var(--ink); background: var(--mustard); }
+.photo-timer--quick small { color: var(--cream-muted); font-weight: 600; }
+
+.photo-check-button {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 4;
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border-radius: 50%;
+}
+.photo-check-button .camera-mark { border-color: var(--cream); }
+.photo-check-button .camera-mark::before { border-color: var(--cream); }
+.photo-check-button .camera-mark::after { background: var(--cream); }
+.photo-check-button:hover { background: rgba(67, 27, 24, 0.6); }
+
+/* One mic button = the whole voice guide */
+.guide-button {
+  position: relative;
+  color: var(--ink) !important;
+  background: var(--mustard) !important;
+  overflow: hidden;
+}
+.guide-button .ptt-mark { transform: scale(0.72); }
+.guide-button.is-on {
+  color: var(--cream) !important;
+  background: linear-gradient(165deg, #63815a, #46603f) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 3px rgba(99, 129, 90, 0.3);
+}
+.guide-button.is-on.is-listening::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid rgba(223, 240, 211, 0.7);
+  animation: guidePulse 1.8s ease-out infinite;
+}
+@keyframes guidePulse {
+  0% { opacity: 1; transform: scale(0.94); }
+  70%, 100% { opacity: 0; transform: scale(1.04); }
+}
+
+/* The guide's visible reply */
+.guide-reply {
+  display: grid;
+  gap: 3px;
+  max-width: 640px;
+  margin: 15px auto 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-align: left;
+}
+.guide-reply small { color: var(--cream-muted); font-style: italic; }
+.guide-reply strong { color: var(--cream); font-size: 1rem; line-height: 1.35; }
+
+/* Flame + cookware as calm inline text, not buttons */
+.step-meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 14px 2px 0;
+  color: var(--cream-muted);
+  line-height: 1.4;
+}
+.step-meta strong { color: var(--brass); }
+.step-meta .flame-mark { transform: scale(0.72); margin: -4px -2px; }
+
+.whistle-inline { border-radius: 14px; }
+
+/* Library ambient + hero polish */
+.app--library .library-intro h1 { text-shadow: 0 2px 24px rgba(30, 8, 6, 0.4); }
+
+.show-all-card {
+  display: grid;
+  min-height: 154px;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  border: 1px dashed rgba(217, 175, 102, 0.6);
+  border-radius: 10px;
+  color: var(--cream);
+  background: rgba(67, 27, 24, 0.3);
+}
+.show-all-card strong { font-family: "Fraunces", serif; font-size: 2rem; color: var(--brass); }
+.show-all-card:hover { background: rgba(67, 27, 24, 0.5); }
 
 /* --- Placement inside the desktop cooking grid --- */
 @media (min-width: 980px) {

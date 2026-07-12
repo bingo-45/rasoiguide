@@ -31,27 +31,35 @@ test("touch-only Dal Tadka cook-through remains complete", async ({ page }) => {
 test("mocked Hinglish voice advances without touch navigation", async ({ page }) => {
   await page.addInitScript(() => {
     localStorage.setItem("rasoiguide-mic-explained", "true");
+    // Fires exactly one final result across all instances — later hands-free
+    // restarts behave like silence, mirroring a single spoken command.
     class MockRecognition {
       lang = "hi-IN";
       continuous = false;
       interimResults = true;
       maxAlternatives = 3;
+      aborted = false;
       onresult: ((event: unknown) => void) | null = null;
       onerror: ((event: unknown) => void) | null = null;
       onend: (() => void) | null = null;
       start() {
-        setTimeout(() => this.onresult?.({ resultIndex: 0, results: [{ 0: { transcript: "agla step", confidence: .99 }, isFinal: true }] }), 60);
+        this.aborted = false;
+        setTimeout(() => {
+          const flagged = window as unknown as { __rasoiSpoke?: boolean };
+          if (this.aborted || flagged.__rasoiSpoke) return;
+          flagged.__rasoiSpoke = true;
+          this.onresult?.({ resultIndex: 0, results: [{ 0: { transcript: "agla step", confidence: .99 }, isFinal: true }] });
+        }, 120);
       }
       stop() { setTimeout(() => this.onend?.(), 30); }
-      abort() { this.onend?.(); }
+      abort() { this.aborted = true; this.onend?.(); }
     }
     Object.defineProperty(window, "SpeechRecognition", { value: MockRecognition, configurable: true });
     Object.defineProperty(window, "webkitSpeechRecognition", { value: MockRecognition, configurable: true });
   });
   await beginTouchCook(page);
-  await page.locator(".ptt-button").click({ delay: 150 });
-  await expect(page.getByText("Step 2 / 8", { exact: true })).toBeVisible({ timeout: 10_000 });
-  await expect(page.getByText(/Suna:.*agla step/i)).toBeVisible();
+  await page.locator(".guide-button").click();
+  await expect(page.locator(".step-heading").getByText("Step 2 / 8", { exact: true })).toBeVisible({ timeout: 10_000 });
 });
 
 test("installed shell and active content survive airplane mode", async ({ page, context }) => {

@@ -21,6 +21,7 @@ export function LibraryScreen({
 }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
+  const [showAll, setShowAll] = useState(false);
   const filtered = useMemo(() => recipes.filter((recipe) => {
     const haystack = `${recipe.title.en} ${recipe.title.hi} ${recipe.title["hi-Latn"]} ${recipe.tags.join(" ")} ${recipe.ingredients.map((item) => `${item.name.en} ${item.name.hi} ${item.name["hi-Latn"]}`).join(" ")}`.toLowerCase();
     const tagMatch = filter === "all" || recipe.tags.includes(filter);
@@ -71,7 +72,7 @@ export function LibraryScreen({
           <span className="offline-seal"><i /> {msg(language, "readyOffline")}</span>
         </div>
         <button className="editorial-card" onClick={() => onOpen(featured.id)}>
-          <RecipeVisual recipe={featured} />
+          <RecipeVisual recipe={featured} preferThumb />
           <span className="editorial-card__copy">
             <span className="editorial-kicker">{localText(featured.region, language)} · {msg(language, "minutes", { count: featured.timeMin })}</span>
             <strong>{localText(featured.title, language)}</strong>
@@ -87,14 +88,20 @@ export function LibraryScreen({
           <span>{filtered.length}</span>
         </div>
         <div className="filter-row" role="group" aria-label={msg(language, "filters")}>
-          {["all", "satvik", "vrat", "festival"].map((tag) => (
+          {["all", "satvik", "vrat", "festival", "non-veg"].map((tag) => (
             <button key={tag} className={filter === tag ? "is-active" : ""} onClick={() => setFilter(tag)}>
-              {msg(language, tag as "all" | "satvik" | "vrat" | "festival")}
+              {msg(language, (tag === "non-veg" ? "nonveg" : tag) as "all" | "satvik" | "vrat" | "festival" | "nonveg")}
             </button>
           ))}
         </div>
         <div className="recipe-list">
-          {filtered.map((recipe) => <RecipeListCard key={recipe.id} recipe={recipe} language={language} onOpen={() => onOpen(recipe.id)} />)}
+          {(showAll || query || filter !== "all" ? filtered : filtered.slice(0, 9)).map((recipe) => <RecipeListCard key={recipe.id} recipe={recipe} language={language} onOpen={() => onOpen(recipe.id)} />)}
+          {!showAll && !query && filter === "all" && filtered.length > 9 && (
+            <button className="show-all-card" onClick={() => setShowAll(true)}>
+              <strong>+{filtered.length - 9}</strong>
+              <span>{language === "en" ? "See every dish" : language === "hi" ? "सारी डिशें देखें" : "Saari dishes dekho"}</span>
+            </button>
+          )}
           {!filtered.length && (
             <div className="empty-state">
               <span className="empty-katori" aria-hidden="true" />

@@ -1,21 +1,24 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react";
 import { AppHeader, BottomNav, Sheet } from "./components";
 import { logIntentUnknown } from "./db";
 import { recipeById } from "./data/recipes";
 import { useConnectivity, useCookClock, useDurableStorage, useInstallPrompt, useWakeLock } from "./hooks";
 import { msg } from "./messages";
 import { localText, type View } from "./model";
-import { CookingScreen } from "./screens/CookingScreen";
-import { DetailScreen } from "./screens/DetailScreen";
 import { LibraryScreen } from "./screens/LibraryScreen";
-import { NaniScreen } from "./screens/NaniScreen";
-import { PantryScreen } from "./screens/PantryScreen";
-import { PrepScreen } from "./screens/PrepScreen";
-import { SettingsScreen } from "./screens/SettingsScreen";
-import { SummaryScreen } from "./screens/SummaryScreen";
-import { ThaliScreen } from "./screens/ThaliScreen";
+
+// The library boots instantly; every other screen loads on first visit.
+const CookingScreen = lazy(() => import("./screens/CookingScreen").then((m) => ({ default: m.CookingScreen })));
+const DetailScreen = lazy(() => import("./screens/DetailScreen").then((m) => ({ default: m.DetailScreen })));
+const NaniScreen = lazy(() => import("./screens/NaniScreen").then((m) => ({ default: m.NaniScreen })));
+const PantryScreen = lazy(() => import("./screens/PantryScreen").then((m) => ({ default: m.PantryScreen })));
+const PrepScreen = lazy(() => import("./screens/PrepScreen").then((m) => ({ default: m.PrepScreen })));
+const SettingsScreen = lazy(() => import("./screens/SettingsScreen").then((m) => ({ default: m.SettingsScreen })));
+const SummaryScreen = lazy(() => import("./screens/SummaryScreen").then((m) => ({ default: m.SummaryScreen })));
+const ThaliScreen = lazy(() => import("./screens/ThaliScreen").then((m) => ({ default: m.ThaliScreen })));
 import { useAppStore } from "./store";
-import { APP_BASE, relativePath, routeForView } from "./utils";
+import { matchIngredient, matchRecovery, quantityAnswer, quantitySummary, soundsLikeProblem, wantsHelp, wantsResume, wantsTimerStart } from "./guide";
+import { APP_BASE, flameInstruction, relativePath, routeForView } from "./utils";
 import { useVoiceController } from "./voiceController";
 import { useWhistleController } from "./whistleController";
 
@@ -47,7 +50,6 @@ export function App() {
   const online = useConnectivity();
   const installPrompt = useInstallPrompt();
   const [permissionOpen, setPermissionOpen] = useState(false);
-  const pendingVoiceStart = useRef(false);
   const pendingHandsFree = useRef(false);
   const previousTimerComplete = useRef(false);
   const previousStep = useRef<string>();
@@ -67,53 +69,121 @@ export function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Ref keeps the guide's speech pointing at the freshest controller/language.
+  const voiceRef = useRef<{ speak: (text: string) => void }>({ speak: () => undefined });
+
   const executeIntent = useCallback((transcript: string, intent: string, alternatives: string[]) => {
     const latest = useAppStore.getState();
+    const lang = latest.preferences.language;
     const session = latest.session;
     const currentRecipe = recipeById(session?.recipeId ?? latest.selectedRecipeId);
     const currentStep = session ? currentRecipe.steps[session.stepIndex] : undefined;
-    latest.setHeard(transcript, intent === "unknown" ? alternatives.slice(0, 3).join(" / ") : intent);
+
+    // Every utterance gets a spoken AND visible reply — the guide never goes silent.
+    const respond = (reply: string) => {
+      latest.setHeard(transcript, reply);
+      voiceRef.current.speak(reply);
+    };
+
+    // Free-form routers first: these beat the classifier for guide-style requests.
+    if (wantsHelp(transcript)) {
+      respond(msg(lang, "guideHelp"));
+      return;
+    }
+    if (session?.paused && wantsResume(transcript)) {
+      latest.togglePause();
+      respond(msg(lang, "guideResumed"));
+      return;
+    }
+    if (wantsTimerStart(transcript) && currentStep) {
+      if (session?.timer && !session.timer.completed) {
+        respond(msg(lang, "guideTimerLeft", { minutes: Math.floor(session.timer.remainingSec / 60), seconds: session.timer.remainingSec % 60 }));
+      } else if (currentStep.durationSec) {
+        latest.startTimer(currentStep.durationSec, currentStep.id);
+        respond(msg(lang, "guideTimerStarted", { count: Math.ceil(currentStep.durationSec / 60) }));
+      } else {
+        respond(msg(lang, "guideNoDuration"));
+      }
+      return;
+    }
+
+    const troubleshootNow = () => {
+      const match = session ? matchRecovery(currentRecipe, session.stepIndex, transcript) : undefined;
+      if (match) {
+        latest.recordRecovery(match.recovery.id);
+        respond(`${msg(lang, "guideFixIntro")} ${localText(match.recovery.fix, lang)}`);
+        window.dispatchEvent(new CustomEvent("rasoiguide:open-recovery", { detail: { recoveryId: match.recovery.id, stepId: match.step.id } }));
+      } else {
+        respond(msg(lang, "guideAskProblem"));
+        window.dispatchEvent(new CustomEvent("rasoiguide:open-recovery"));
+      }
+    };
+
     switch (intent) {
       case "advance":
-        if (session && session.stepIndex >= currentRecipe.steps.length - 1) latest.completeCook();
-        else latest.changeStep(1);
+        if (session && session.stepIndex >= currentRecipe.steps.length - 1) {
+          latest.completeCook();
+        } else if (session) {
+          latest.changeStep(1);
+          latest.setHeard(transcript, msg(lang, "stepOf", { current: session.stepIndex + 2, total: currentRecipe.steps.length }));
+          // The step-change effect speaks the new step; no extra reply needed.
+        }
         break;
       case "go-back":
-        latest.changeStep(-1);
+        if (session && session.stepIndex === 0) respond(msg(lang, "guideFirstStep"));
+        else {
+          latest.changeStep(-1);
+          latest.setHeard(transcript, msg(lang, "back"));
+        }
         break;
       case "repeat":
-        if (currentStep) voice.speak(localText(currentStep.spoken, latest.preferences.language));
+        if (currentStep) respond(localText(currentStep.spoken, lang));
         break;
-      case "quantity-query":
-        voice.speak(currentRecipe.ingredients.slice(0, 3).map((item) => localText(item.name, latest.preferences.language)).join(", "));
+      case "quantity-query": {
+        const ingredient = matchIngredient(currentRecipe, transcript);
+        respond(ingredient
+          ? quantityAnswer(ingredient, currentRecipe.servingsBase, currentRecipe.servingsBase, latest.preferences.katoriMl, lang)
+          : quantitySummary(currentRecipe, currentRecipe.servingsBase, latest.preferences.katoriMl, lang));
         break;
+      }
       case "timer-query":
-        voice.speak(session?.timer ? `${Math.ceil(session.timer.remainingSec / 60)} minutes remaining` : "No timer is running right now.");
+        if (session?.timer && !session.timer.completed) {
+          respond(msg(lang, "guideTimerLeft", { minutes: Math.floor(session.timer.remainingSec / 60), seconds: session.timer.remainingSec % 60 }));
+        } else {
+          respond(msg(lang, currentStep?.durationSec ? "guideNoTimer" : "guideNoDuration"));
+        }
         break;
       case "flame-query":
-        if (currentStep) voice.speak(`Aanch level ${currentStep.flame}. ${localText(currentStep.text, latest.preferences.language)}`);
+        if (currentStep) respond(`${msg(lang, "flame", { level: currentStep.flame })}: ${flameInstruction(latest.preferences.stove, currentStep.flame, lang)}`);
         break;
       case "troubleshoot":
-        window.dispatchEvent(new Event("rasoiguide:open-recovery"));
+        troubleshootNow();
         break;
       case "pause-everything":
-        latest.togglePause();
+        if (!session?.paused) latest.togglePause();
+        respond(msg(lang, "guidePausedMsg"));
         break;
       case "whistle-report":
         latest.addWhistle(1);
+        respond(msg(lang, "guideWhistleCounted", { count: (session?.whistleCount ?? 0) + 1 }));
         break;
-      case "substitute-query":
-        latest.navigate("prep");
+      case "substitute-query": {
+        const ingredient = matchIngredient(currentRecipe, transcript);
+        const substitution = ingredient?.substitutions?.[0];
+        if (substitution) respond(`${localText(substitution.name, lang)} — ${substitution.ratio}. ${localText(substitution.note, lang)}`);
+        else latest.navigate("prep");
         break;
+      }
       case "switch-dish":
         latest.navigate("thali");
         break;
       default:
         void logIntentUnknown(transcript, alternatives);
-        voice.speak(`Matlab: ${alternatives.slice(0, 3).join(", ya ")}?`);
+        // A described problem beats a canned "didn't catch that".
+        if (soundsLikeProblem(transcript)) troubleshootNow();
+        else respond(msg(lang, "guideUnknown"));
     }
-  // The voice controller is stable across a render; callback refreshes when its language/disabled inputs change.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Reads all state through the store + voiceRef, so a stable identity is safe.
   }, []);
 
   const voice = useVoiceController({
@@ -122,6 +192,7 @@ export function App() {
     onState: state.setVoiceState,
     onResolved: executeIntent
   });
+  voiceRef.current = voice;
 
   const whistleDetector = useWhistleController(() => {
     const latest = useAppStore.getState();
@@ -137,8 +208,10 @@ export function App() {
   }, [activeRecipe.steps, state.session, state.view, whistleDetector]);
 
   useEffect(() => {
-    if ((state.view !== "cook" || state.session?.paused) && voice.handsFree) voice.stopHandsFree();
-  }, [state.session?.paused, state.view, voice]);
+    // The guide keeps listening while paused (so "chalu karo" works) but
+    // switches off when the cook leaves the cooking screen entirely.
+    if (state.view !== "cook" && voice.handsFree) voice.stopHandsFree();
+  }, [state.view, voice]);
 
   useEffect(() => {
     const currentPath = routeForView(state.view, recipe.slug);
@@ -166,13 +239,18 @@ export function App() {
   }, [state]);
 
   useEffect(() => {
-    if (state.view !== "cook" || !state.session || state.session.paused || !state.preferences.sounds) return;
+    if (state.view !== "cook" || !state.session || state.session.paused) return;
     const step = activeRecipe.steps[state.session.stepIndex];
     if (!step || previousStep.current === step.id) return;
     previousStep.current = step.id;
+    // Every timed step gets its timer automatically — no hunting for a button.
+    if (step.durationSec && (!state.session.timer || state.session.timer.stepId !== step.id)) {
+      state.startTimer(step.durationSec, step.id);
+    }
+    if (!state.preferences.sounds) return;
     const delay = window.setTimeout(() => voice.speak(localText(step.spoken, language)), 260);
     return () => window.clearTimeout(delay);
-  }, [activeRecipe.steps, language, state.preferences.sounds, state.session, state.view, voice]);
+  }, [activeRecipe.steps, language, state, state.preferences.sounds, state.session, state.view, voice]);
 
   useEffect(() => {
     const complete = Boolean(state.session?.timer?.completed);
@@ -195,21 +273,6 @@ export function App() {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  const beginVoice = useCallback(() => {
-    if (localStorage.getItem("rasoiguide-mic-explained") !== "true") {
-      pendingVoiceStart.current = true;
-      setPermissionOpen(true);
-      return;
-    }
-    pendingVoiceStart.current = true;
-    voice.start();
-  }, [voice]);
-
-  const endVoice = useCallback(() => {
-    voice.stop();
-    pendingVoiceStart.current = false;
-  }, [voice]);
-
   const toggleHandsFree = useCallback(() => {
     if (voice.handsFree) {
       voice.stopHandsFree();
@@ -221,7 +284,7 @@ export function App() {
       return;
     }
     voice.startHandsFree();
-    voice.speak(msg(language, "handsFreeOn"));
+    voice.speak(msg(language, "guideOn"));
   }, [language, voice]);
 
   const shellVisible = ["library", "pantry", "settings"].includes(state.view);
@@ -242,7 +305,7 @@ export function App() {
         return <PrepScreen recipe={activeRecipe} session={state.session} preferences={state.preferences} onBack={() => state.navigate("detail")} onToggle={state.toggleIngredient} onSubstitute={state.applySubstitution} onBegin={state.beginCooking} />;
       case "cook":
         if (!state.session) return null;
-        return <CookingScreen recipe={activeRecipe} session={state.session} preferences={state.preferences} voiceState={state.voiceState} heard={state.heard} wakeLock={wakeLock} onBack={() => state.navigate("library")} onChangeStep={state.changeStep} onTimer={state.startTimer} onPause={state.togglePause} onWhistle={state.addWhistle} onRecovery={state.recordRecovery} onComplete={state.completeCook} onPushToTalkStart={beginVoice} onPushToTalkEnd={endVoice} handsFree={voice.handsFree} onHandsFreeToggle={toggleHandsFree} whistleDetectorStatus={whistleDetector.status} onWhistleDetectorStart={() => void whistleDetector.start()} onWhistleDetectorStop={whistleDetector.stop} />;
+        return <CookingScreen recipe={activeRecipe} session={state.session} preferences={state.preferences} voiceState={state.voiceState} heard={state.heard} wakeLock={wakeLock} onBack={() => state.navigate("library")} onChangeStep={state.changeStep} onTimer={state.startTimer} onPause={state.togglePause} onWhistle={state.addWhistle} onRecovery={state.recordRecovery} onComplete={state.completeCook} guideActive={voice.handsFree} onGuideToggle={toggleHandsFree} whistleDetectorStatus={whistleDetector.status} onWhistleDetectorStart={() => void whistleDetector.start()} onWhistleDetectorStop={whistleDetector.stop} />;
       case "thali":
         return <ThaliScreen language={language} selectedIds={state.thaliRecipeIds} onSelection={state.setThaliRecipes} onBack={() => state.navigate("library")} onOpenRecipe={(id) => state.selectRecipe(id)} />;
       case "pantry":
@@ -263,26 +326,28 @@ export function App() {
     <div className={`app app--${state.view}`} data-view={state.view} data-session-step={state.session?.stepIndex}>
       <a className="skip-link" href="#main-content">Skip to content</a>
       {shellVisible && <AppHeader language={language} online={online} canInstall={installPrompt.canInstall} onInstall={() => void installPrompt.install()} onHome={() => state.navigate("library")} />}
-      {content}
+      <Suspense fallback={
+        <main className="loading-kitchen">
+          <span className="loading-pot" aria-hidden="true"><i /><i /></span>
+          <p>Rasoi taiyaar ho rahi hai…</p>
+        </main>
+      }>
+        {content}
+      </Suspense>
       {shellVisible && <BottomNav view={state.view} language={language} navigate={state.navigate} />}
 
       {permissionOpen && (
-        <Sheet title={msg(language, "pushToTalk")} eyebrow="One clear permission" onClose={() => { setPermissionOpen(false); pendingVoiceStart.current = false; }} className="permission-sheet">
+        <Sheet title={msg(language, "handsFree")} eyebrow="One clear permission" onClose={() => { setPermissionOpen(false); pendingHandsFree.current = false; }} className="permission-sheet">
           <div className="permission-visual"><span className="ptt-mark" aria-hidden="true"><i /></span><span className="permission-rings" aria-hidden="true"><i /><i /></span></div>
           <p>{msg(language, "permissionIntro")}</p>
           <button className="primary-cta" onClick={() => {
             localStorage.setItem("rasoiguide-mic-explained", "true");
             setPermissionOpen(false);
-            if (pendingHandsFree.current) {
-              pendingHandsFree.current = false;
-              voice.startHandsFree();
-              voice.speak(msg(language, "handsFreeOn"));
-            } else {
-              pendingVoiceStart.current = true;
-              voice.start();
-            }
+            pendingHandsFree.current = false;
+            voice.startHandsFree();
+            voice.speak(msg(language, "guideOn"));
           }}>{msg(language, "allowMic")}</button>
-          <button className="sheet-cancel" onClick={() => { setPermissionOpen(false); pendingVoiceStart.current = false; pendingHandsFree.current = false; }}>{msg(language, "touchOnly")}</button>
+          <button className="sheet-cancel" onClick={() => { setPermissionOpen(false); pendingHandsFree.current = false; }}>{msg(language, "touchOnly")}</button>
         </Sheet>
       )}
     </div>
