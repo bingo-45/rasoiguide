@@ -20,7 +20,7 @@ interface AppState {
   selectRecipe: (recipeId: string) => void;
   setThaliRecipes: (ids: string[]) => void;
   resumeCooking: () => Promise<void>;
-  startPrep: (recipeId?: string) => void;
+  startPrep: (recipeId?: string, servings?: number) => void;
   toggleIngredient: (ingredientId: string) => void;
   applySubstitution: (ingredientId: string, substitution: string) => void;
   beginCooking: (skipPrep?: boolean) => void;
@@ -37,9 +37,10 @@ interface AppState {
   setHeard: (transcript: string, intent: string) => void;
 }
 
-const newSession = (recipeId: string): CookSession => ({
+const newSession = (recipeId: string, servings = recipeById(recipeId).servingsBase): CookSession => ({
   id: crypto.randomUUID(),
   recipeId,
+  servings,
   stepIndex: 0,
   startedAt: Date.now(),
   updatedAt: Date.now(),
@@ -55,9 +56,22 @@ const save = (session: CookSession | undefined, kind: string): void => {
   if (session) void persistSession(session, kind);
 };
 
+const initialView = (): View => {
+  if (typeof window === "undefined") return "library";
+  const path = window.location.pathname;
+  if (path.includes("/cook/")) return "cook";
+  if (path.includes("/prep/")) return "prep";
+  if (path.includes("/recipe/")) return "detail";
+  if (path.includes("/thali")) return "thali";
+  if (path.includes("/pantry")) return "pantry";
+  if (path.includes("/settings")) return "settings";
+  if (path.includes("/nani")) return "nani";
+  return "library";
+};
+
 export const useAppStore = create<AppState>((set, get) => ({
   hydrated: false,
-  view: "library",
+  view: initialView(),
   previousView: "library",
   selectedRecipeId: "dal-tadka",
   preferences: defaultPreferences,
@@ -74,8 +88,9 @@ export const useAppStore = create<AppState>((set, get) => ({
       set({
         hydrated: true,
         preferences: preferences ?? defaultPreferences,
-        session: freshestSession,
-        selectedRecipeId: freshestSession?.recipeId ?? "dal-tadka"
+        session: freshestSession ? { ...freshestSession, servings: freshestSession.servings ?? recipeById(freshestSession.recipeId).servingsBase } : undefined,
+        selectedRecipeId: freshestSession?.recipeId ?? "dal-tadka",
+        view: get().view === "cook" && !freshestSession ? "library" : get().view
       });
     } catch {
       set({ hydrated: true });
@@ -102,10 +117,12 @@ export const useAppStore = create<AppState>((set, get) => ({
     }));
   },
 
-  startPrep: (recipeId) => {
+  startPrep: (recipeId, servings) => {
     const selectedRecipeId = recipeId ?? get().selectedRecipeId;
     const existing = get().session;
-    const session = existing && !existing.completed && existing.recipeId === selectedRecipeId ? existing : newSession(selectedRecipeId);
+    const session = existing && !existing.completed && existing.recipeId === selectedRecipeId
+      ? { ...existing, servings: servings ?? existing.servings ?? recipeById(selectedRecipeId).servingsBase }
+      : newSession(selectedRecipeId, servings);
     set((state) => ({ selectedRecipeId, session, previousView: state.view, view: "prep" }));
     save(session, "prep-started");
   },

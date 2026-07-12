@@ -100,7 +100,6 @@ export function RecipeVisual({ recipe, stage, compact = false, photo, caption, p
           src={useThumb ? thumbSrc : fullSrc}
           alt={`${recipe.title.en}: ${caption ?? stage ?? "finished dish"}`}
           loading={compact ? "lazy" : "eager"}
-          fetchPriority={compact ? undefined : "high"}
           decoding="async"
           onError={(event) => {
             const image = event.currentTarget;

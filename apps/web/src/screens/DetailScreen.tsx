@@ -14,7 +14,7 @@ export function DetailScreen({
   recipe: RecipeCard;
   preferences: Preferences;
   onBack: () => void;
-  onStart: () => void;
+  onStart: (servings: number) => void;
   onAddThali: () => void;
 }) {
   const [servings, setServings] = useState(recipe.servingsBase);
@@ -78,10 +78,25 @@ export function DetailScreen({
             })}
           </div>
         </section>
+
+        <section className="visual-timeline" aria-labelledby="visual-timeline-title">
+          <div className="section-heading section-heading--compact">
+            <div><small>REAL COOKING REFERENCES</small><h2 id="visual-timeline-title">How it should look, step by step</h2></div>
+            <span>{recipe.steps.length} stages</span>
+          </div>
+          <div className="visual-timeline__rail">
+            {recipe.steps.map((step) => (
+              <article className="visual-timeline__step" key={step.id}>
+                <RecipeVisual recipe={recipe} stage={step.stage} photo={step.photo} compact caption={`Step ${step.n} · real reference`} />
+                <div><span>0{step.n}</span><strong>{localText(step.cue, language)}</strong></div>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
       <div className="detail-actions glass-region">
         <button className="secondary-cta" onClick={onAddThali}>{msg(language, "addThali")}</button>
-        <button className="primary-cta" onClick={onStart}>{msg(language, "startCooking")} <span>→</span></button>
+        <button className="primary-cta" onClick={() => onStart(servings)}>{msg(language, "startCooking")} <span>→</span></button>
       </div>
     </main>
   );

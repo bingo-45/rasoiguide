@@ -22,6 +22,7 @@ export function CookingScreen({
   onComplete,
   guideActive,
   onGuideToggle,
+  onAsk,
   whistleDetectorStatus,
   onWhistleDetectorStart,
   onWhistleDetectorStop
@@ -41,6 +42,7 @@ export function CookingScreen({
   onComplete: () => void;
   guideActive: boolean;
   onGuideToggle: () => void;
+  onAsk: (question: string) => void;
   whistleDetectorStatus: "off" | "requesting" | "warming" | "listening" | "whistle" | "error";
   onWhistleDetectorStart: () => void;
   onWhistleDetectorStop: () => void;
@@ -49,6 +51,7 @@ export function CookingScreen({
   const [selectedRecovery, setSelectedRecovery] = useState<Recovery>();
   const [whistleOpen, setWhistleOpen] = useState(false);
   const [checkOpen, setCheckOpen] = useState(false);
+  const [question, setQuestion] = useState("");
   const [calibrated, setCalibrated] = useState(() => localStorage.getItem("rasoiguide-whistle-calibrated") === "true");
   const language = preferences.language;
   const step = recipe.steps[session.stepIndex]!;
@@ -160,6 +163,37 @@ export function CookingScreen({
                 <b>{whistleComplete ? "✓" : "Open"}</b>
               </button>
             )}
+
+            <section className="rasoi-guide-panel glass-region" aria-label="RasoiGuide cooking assistant">
+              <div className="rasoi-guide-panel__head">
+                <span className={`guide-orb guide-orb--${voiceState}`} aria-hidden="true"><i /></span>
+                <div><small>RASOI GUIDE</small><strong>{guideLabel}</strong></div>
+                <span className="language-badge">हिंदी · Hinglish · EN</span>
+              </div>
+              {heard && (
+                <div className="guide-conversation" role="status" aria-live="polite">
+                  <small>“{heard.transcript}”</small>
+                  <p>{heard.intent}</p>
+                </div>
+              )}
+              <form className="guide-composer" onSubmit={(event) => {
+                event.preventDefault();
+                const value = question.trim();
+                if (!value) return;
+                onAsk(value);
+                setQuestion("");
+              }}>
+                <label htmlFor="cook-question">Ask anything about this step</label>
+                <div>
+                  <input id="cook-question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Kya masala jal gaya? · How thick should it be?" autoComplete="off" />
+                  <button type="button" className="composer-mic" onClick={onGuideToggle} aria-label={msg(language, "tapForGuide")}><span className="ptt-mark" aria-hidden="true"><i /></span></button>
+                  <button type="submit" className="composer-send" disabled={!question.trim()} aria-label="Ask RasoiGuide">↑</button>
+                </div>
+              </form>
+              <div className="guide-suggestions" aria-label="Suggested questions">
+                {["How should it look?", "Kitni der?", "What next?"].map((prompt) => <button key={prompt} onClick={() => onAsk(prompt)}>{prompt}</button>)}
+              </div>
+            </section>
 
             {heard && Date.now() - heard.at < 12000 && (
               <div className="guide-reply glass-region" role="status">

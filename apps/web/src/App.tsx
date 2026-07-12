@@ -17,7 +17,7 @@ const SettingsScreen = lazy(() => import("./screens/SettingsScreen").then((m) =>
 const SummaryScreen = lazy(() => import("./screens/SummaryScreen").then((m) => ({ default: m.SummaryScreen })));
 const ThaliScreen = lazy(() => import("./screens/ThaliScreen").then((m) => ({ default: m.ThaliScreen })));
 import { useAppStore } from "./store";
-import { matchIngredient, matchRecovery, quantityAnswer, quantitySummary, soundsLikeProblem, wantsHelp, wantsResume, wantsTimerStart } from "./guide";
+import { answerCookingQuestion, matchIngredient, matchRecovery, quantityAnswer, quantitySummary, soundsLikeProblem, wantsHelp, wantsResume, wantsTimerStart } from "./guide";
 import { APP_BASE, flameInstruction, relativePath, routeForView } from "./utils";
 import { useVoiceController } from "./voiceController";
 import { useWhistleController } from "./whistleController";
@@ -179,9 +179,15 @@ export function App() {
         break;
       default:
         void logIntentUnknown(transcript, alternatives);
-        // A described problem beats a canned "didn't catch that".
         if (soundsLikeProblem(transcript)) troubleshootNow();
-        else respond(msg(lang, "guideUnknown"));
+        else respond(answerCookingQuestion(transcript, {
+          recipe: currentRecipe,
+          stepIndex: session?.stepIndex ?? 0,
+          servings: session?.servings ?? currentRecipe.servingsBase,
+          katoriMl: latest.preferences.katoriMl,
+          preferredLanguage: lang,
+          stove: latest.preferences.stove
+        }));
     }
   // Reads all state through the store + voiceRef, so a stable identity is safe.
   }, []);
@@ -299,13 +305,13 @@ export function App() {
     }
     switch (state.view) {
       case "detail":
-        return <DetailScreen recipe={recipe} preferences={state.preferences} onBack={() => state.navigate("library")} onStart={() => state.startPrep(recipe.id)} onAddThali={() => { if (!state.thaliRecipeIds.includes(recipe.id)) state.setThaliRecipes([...state.thaliRecipeIds, recipe.id]); state.navigate("thali"); }} />;
+        return <DetailScreen recipe={recipe} preferences={state.preferences} onBack={() => state.navigate("library")} onStart={(servings) => state.startPrep(recipe.id, servings)} onAddThali={() => { if (!state.thaliRecipeIds.includes(recipe.id)) state.setThaliRecipes([...state.thaliRecipeIds, recipe.id]); state.navigate("thali"); }} />;
       case "prep":
         if (!state.session) return null;
         return <PrepScreen recipe={activeRecipe} session={state.session} preferences={state.preferences} onBack={() => state.navigate("detail")} onToggle={state.toggleIngredient} onSubstitute={state.applySubstitution} onBegin={state.beginCooking} />;
       case "cook":
         if (!state.session) return null;
-        return <CookingScreen recipe={activeRecipe} session={state.session} preferences={state.preferences} voiceState={state.voiceState} heard={state.heard} wakeLock={wakeLock} onBack={() => state.navigate("library")} onChangeStep={state.changeStep} onTimer={state.startTimer} onPause={state.togglePause} onWhistle={state.addWhistle} onRecovery={state.recordRecovery} onComplete={state.completeCook} guideActive={voice.handsFree} onGuideToggle={toggleHandsFree} whistleDetectorStatus={whistleDetector.status} onWhistleDetectorStart={() => void whistleDetector.start()} onWhistleDetectorStop={whistleDetector.stop} />;
+        return <CookingScreen recipe={activeRecipe} session={state.session} preferences={state.preferences} voiceState={state.voiceState} heard={state.heard} wakeLock={wakeLock} onBack={() => state.navigate("library")} onChangeStep={state.changeStep} onTimer={state.startTimer} onPause={state.togglePause} onWhistle={state.addWhistle} onRecovery={state.recordRecovery} onComplete={state.completeCook} guideActive={voice.handsFree} onGuideToggle={toggleHandsFree} onAsk={(question) => executeIntent(question, "unknown", [])} whistleDetectorStatus={whistleDetector.status} onWhistleDetectorStart={() => void whistleDetector.start()} onWhistleDetectorStop={whistleDetector.stop} />;
       case "thali":
         return <ThaliScreen language={language} selectedIds={state.thaliRecipeIds} onSelection={state.setThaliRecipes} onBack={() => state.navigate("library")} onOpenRecipe={(id) => state.selectRecipe(id)} />;
       case "pantry":

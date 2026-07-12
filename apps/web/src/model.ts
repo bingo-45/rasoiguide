@@ -107,6 +107,7 @@ export interface CookTimer {
 export interface CookSession {
   id: string;
   recipeId: string;
+  servings: number;
   stepIndex: number;
   startedAt: number;
   updatedAt: number;
