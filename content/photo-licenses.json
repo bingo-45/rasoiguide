@@ -1,0 +1,306 @@
+{
+  "retrievedAt": "2026-07-12",
+  "policy": "Only photographs with an explicit reusable license are bundled. Google Images, Instagram posts, and standard-license YouTube frames are not sources.",
+  "photos": [
+    {
+      "id": "dal-tadka",
+      "file": "dal-tadka.jpg",
+      "kind": "dish",
+      "creator": "Biswarup Ganguly",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Punjabi_Dal_Tadka_-_Mohali_2016-08-07_8549.JPG",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Punjabi_Dal_Tadka_-_Mohali_2016-08-07_8549.JPG/1280px-Punjabi_Dal_Tadka_-_Mohali_2016-08-07_8549.JPG"
+    },
+    {
+      "id": "jeera-rice",
+      "file": "jeera-rice.jpg",
+      "kind": "dish",
+      "creator": "JVRKPRASAD",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jeera_Rice_(only).jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Jeera_Rice_%28only%29.jpg"
+    },
+    {
+      "id": "aloo-gobi",
+      "file": "aloo-gobi.jpg",
+      "kind": "dish",
+      "creator": "Biswarup Ganguly",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aloo_Gobi_Masala_-_Mohali_2016-08-07_8551.JPG",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Aloo_Gobi_Masala_-_Mohali_2016-08-07_8551.JPG/1280px-Aloo_Gobi_Masala_-_Mohali_2016-08-07_8551.JPG"
+    },
+    {
+      "id": "rajma-masala",
+      "file": "rajma-masala.jpg",
+      "kind": "dish",
+      "creator": "Shreya151994",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rajma_Chawal_by_Rama_Bhave.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Rajma_Chawal_by_Rama_Bhave.jpg/1280px-Rajma_Chawal_by_Rama_Bhave.jpg"
+    },
+    {
+      "id": "chole-masala",
+      "file": "chole-masala.jpg",
+      "kind": "dish",
+      "creator": "Jnuite",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chana_Masala-_OLd_Rao_Hotel-_Haryana.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Chana_Masala-_OLd_Rao_Hotel-_Haryana.jpg/1280px-Chana_Masala-_OLd_Rao_Hotel-_Haryana.jpg"
+    },
+    {
+      "id": "kadhi-pakora",
+      "file": "kadhi-pakora.jpg",
+      "kind": "dish",
+      "creator": "Ams4wiki",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kadhi_Pakora.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Kadhi_Pakora.jpg/1280px-Kadhi_Pakora.jpg"
+    },
+    {
+      "id": "palak-paneer",
+      "file": "palak-paneer.jpg",
+      "kind": "dish",
+      "creator": "Biswarup Ganguly",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Spinach_Paneer_Curry_-_Kolkata_2011-02-10_0972.JPG",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Spinach_Paneer_Curry_-_Kolkata_2011-02-10_0972.JPG/1280px-Spinach_Paneer_Curry_-_Kolkata_2011-02-10_0972.JPG"
+    },
+    {
+      "id": "dal-makhani",
+      "file": "dal-makhani.jpg",
+      "kind": "dish",
+      "creator": "Maccess Corporation",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dal_Makhni.JPG",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Dal_Makhni.JPG/1280px-Dal_Makhni.JPG"
+    },
+    {
+      "id": "baingan-bharta",
+      "file": "baingan-bharta.jpg",
+      "kind": "dish",
+      "creator": "Devika",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baigan_ka_Bharta.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Baigan_ka_Bharta.jpg/1280px-Baigan_ka_Bharta.jpg"
+    },
+    {
+      "id": "phulka",
+      "file": "phulka.jpg",
+      "kind": "dish",
+      "creator": "Thamizhpparithi Maari",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_set_of_Pulka.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/A_set_of_Pulka.jpg/1280px-A_set_of_Pulka.jpg"
+    },
+    {
+      "id": "bhindi-masala",
+      "file": "bhindi-masala.jpg",
+      "kind": "dish",
+      "creator": "Arun Sekhar",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Roti_with_Bhindi_Masala.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Roti_with_Bhindi_Masala.jpg/1280px-Roti_with_Bhindi_Masala.jpg"
+    },
+    {
+      "id": "aloo-paratha",
+      "file": "aloo-paratha.jpg",
+      "kind": "dish",
+      "creator": "Marajozkee",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aloor_paratha.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Aloor_paratha.jpg/1280px-Aloor_paratha.jpg"
+    },
+    {
+      "id": "paneer-butter-masala",
+      "file": "paneer-butter-masala.jpg",
+      "kind": "dish",
+      "creator": "Devika",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paneer_Butter_Masala_(9243456289).jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Paneer_Butter_Masala_%289243456289%29.jpg/1280px-Paneer_Butter_Masala_%289243456289%29.jpg"
+    },
+    {
+      "id": "raw-toor-dal",
+      "file": "raw-toor-dal.jpg",
+      "kind": "stage",
+      "creator": "Ajay Suresh",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pigeon_Pea_(Toor_Dal)_(49683602388).jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Pigeon_Pea_%28Toor_Dal%29_%2849683602388%29.jpg/1280px-Pigeon_Pea_%28Toor_Dal%29_%2849683602388%29.jpg"
+    },
+    {
+      "id": "raw-rajma",
+      "file": "raw-rajma.jpg",
+      "kind": "stage",
+      "creator": "Ajay Suresh",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Red_Kidney_Beans_(49684142646).jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Red_Kidney_Beans_%2849684142646%29.jpg/1280px-Red_Kidney_Beans_%2849684142646%29.jpg"
+    },
+    {
+      "id": "pressure-cooker",
+      "file": "pressure-cooker.jpg",
+      "kind": "stage",
+      "creator": "Aashirwad Pawar",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Indian_Cooker.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Indian_Cooker.jpg/1280px-Indian_Cooker.jpg"
+    },
+    {
+      "id": "prepared-dal",
+      "file": "prepared-dal.jpg",
+      "kind": "stage",
+      "creator": "Rydia~commonswiki",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Prepared_dal.JPG",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Prepared_dal.JPG"
+    },
+    {
+      "id": "chole-ingredients",
+      "file": "chole-ingredients.jpg",
+      "kind": "stage",
+      "creator": "Nayana.sondi",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ingredients_chole.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/6/64/Ingredients_chole.jpg"
+    },
+    {
+      "id": "paneer-prep",
+      "file": "paneer-prep.jpg",
+      "kind": "stage",
+      "creator": "fugzu",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paneer_cut_in_half,_India_cooking_fromage_cheese_milk_solid.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Paneer_cut_in_half%2C_India_cooking_fromage_cheese_milk_solid.jpg"
+    },
+    {
+      "id": "palak-making",
+      "file": "palak-making.jpg",
+      "kind": "stage",
+      "creator": "SaurWiki",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Palak_Paneer_in_Making.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/9/99/Palak_Paneer_in_Making.jpg"
+    },
+    {
+      "id": "baingan-roast",
+      "file": "baingan-roast.jpeg",
+      "kind": "stage",
+      "creator": "Prashanthns",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baingan_bartha_using_LPG_stove.jpeg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/Baingan_bartha_using_LPG_stove.jpeg"
+    },
+    {
+      "id": "chaunk",
+      "file": "chaunk.jpg",
+      "kind": "stage",
+      "creator": "Badagnani",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chaunkphoto.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/0/09/Chaunkphoto.jpg"
+    },
+    {
+      "id": "dal-after-tadka",
+      "file": "dal-after-tadka.jpg",
+      "kind": "stage",
+      "creator": "aimee rivers",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daal_after_Tadka_Pulse_Soup_India.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/Daal_after_Tadka_Pulse_Soup_India.jpg"
+    },
+    {
+      "id": "phulka-dough",
+      "file": "phulka-01.jpg",
+      "kind": "stage",
+      "creator": "Caduser2003",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chappati-0001.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Chappati-0001.jpg"
+    },
+    {
+      "id": "phulka-knead",
+      "file": "phulka-03.jpg",
+      "kind": "stage",
+      "creator": "Caduser2003",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chappati-0003.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Chappati-0003.jpg"
+    },
+    {
+      "id": "phulka-portion",
+      "file": "phulka-05.jpg",
+      "kind": "stage",
+      "creator": "Caduser2003",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chappati-0005.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Chappati-0005.jpg"
+    },
+    {
+      "id": "phulka-roll",
+      "file": "phulka-08.jpg",
+      "kind": "stage",
+      "creator": "Caduser2003",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chappati-0008.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Chappati-0008.jpg"
+    },
+    {
+      "id": "phulka-tawa",
+      "file": "phulka-10.jpg",
+      "kind": "stage",
+      "creator": "Caduser2003",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chappati-0010.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Chappati-0010.jpg"
+    },
+    {
+      "id": "phulka-flip",
+      "file": "phulka-12.jpg",
+      "kind": "stage",
+      "creator": "Caduser2003",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chappati-0012.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Chappati-0012.jpg"
+    },
+    {
+      "id": "phulka-puff",
+      "file": "phulka-14.jpg",
+      "kind": "stage",
+      "creator": "Caduser2003",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chappati-0014.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Chappati-0014.jpg"
+    }
+  ]
+}

@@ -1,0 +1,1702 @@
+{
+  "schemaVersion": "2.0.0",
+  "packVersion": "1.0.0",
+  "id": "core-dal-tadka",
+  "generatedAt": "2026-07-11T00:00:00+05:30",
+  "localeCoverage": ["en", "hi"],
+  "recipes": [
+    {
+      "id": "dal-tadka",
+      "slug": "dal-tadka",
+      "region": {
+        "en": "Punjab, North India",
+        "hi": "पंजाब, उत्तर भारत"
+      },
+      "course": {
+        "en": "Main-course dal",
+        "hi": "मुख्य भोजन की दाल"
+      },
+      "servingsBase": 4,
+      "estimatedDurationSec": 2700,
+      "difficulty": "medium",
+      "title": {
+        "en": "Home-style Dal Tadka",
+        "hi": "घर जैसी दाल तड़का"
+      },
+      "headnote": {
+        "en": "A soft, comforting toor dal finished with a hot cumin, garlic and ghee tadka. The cooker does the slow work; the final two minutes build the aroma that makes it taste like home.",
+        "hi": "नरम अरहर की दाल पर जीरा, लहसुन और घी का गरम तड़का। धीमा काम कुकर करता है; आखिर के दो मिनट की खुशबू इसे बिल्कुल घर वाली दाल बनाती है।"
+      },
+      "tags": [
+        "everyday",
+        "vegetarian",
+        "north-indian",
+        "protein-rich",
+        "comfort-food",
+        "satvik",
+        "jain"
+      ],
+      "variants": [
+        {
+          "tag": "satvik",
+          "title": {
+            "en": "Satvik, without onion or garlic",
+            "hi": "सात्विक, बिना प्याज़ और लहसुन"
+          },
+          "patchOps": [
+            {
+              "op": "remove-ingredient",
+              "ingredientId": "onion",
+              "reason": {
+                "en": "Onion is omitted for this authored satvik version.",
+                "hi": "इस लिखित सात्विक रूप में प्याज़ नहीं डाला जाता।"
+              }
+            },
+            {
+              "op": "remove-ingredient",
+              "ingredientId": "garlic",
+              "reason": {
+                "en": "Garlic is omitted for this authored satvik version.",
+                "hi": "इस लिखित सात्विक रूप में लहसुन नहीं डाला जाता।"
+              }
+            },
+            {
+              "op": "patch-ingredient",
+              "ingredientId": "asafoetida",
+              "patch": {
+                "canonical": { "qty": 0.8, "unit": "g" }
+              },
+              "reason": {
+                "en": "A little more hing gives the tadka depth without onion or garlic.",
+                "hi": "थोड़ी ज़्यादा हींग प्याज़-लहसुन के बिना भी तड़के को गहराई देती है।"
+              }
+            },
+            {
+              "op": "remove-step",
+              "stepId": "saute-onion",
+              "reason": {
+                "en": "The onion-browning stage is intentionally removed, not merely hidden.",
+                "hi": "प्याज़ भूनने का चरण जानबूझकर हटाया गया है, सिर्फ़ छिपाया नहीं गया।"
+              }
+            },
+            {
+              "op": "patch-step",
+              "stepId": "bloom-aromatics",
+              "patch": {
+                "dependsOn": ["crackle-cumin"],
+                "text": {
+                  "en": "Add ginger, green chilli and the extra hing. Stir for 20 seconds; do not let the hing darken.",
+                  "hi": "अदरक, हरी मिर्च और अतिरिक्त हींग डालें। 20 सेकंड चलाएँ; हींग को गहरा न होने दें।"
+                },
+                "spoken": {
+                  "en": "Now ginger, green chilli and hing go in. Just twenty seconds—keep the hing golden, not brown.",
+                  "hi": "अब अदरक, हरी मिर्च और हींग डालो। बस बीस सेकंड—हींग सुनहरी रहे, भूरी नहीं।"
+                },
+                "note": {
+                  "en": "Rewire the tadka after removing the onion stage.",
+                  "hi": "प्याज़ वाला चरण हटने के बाद तड़के का क्रम जोड़ा गया है।"
+                }
+              },
+              "reason": {
+                "en": "Hing and ginger form the aromatic base in the satvik rewrite.",
+                "hi": "सात्विक रूप में हींग और अदरक खुशबू का आधार बनते हैं।"
+              }
+            }
+          ]
+        },
+        {
+          "tag": "jain",
+          "title": {
+            "en": "Jain-style, without root aromatics",
+            "hi": "जैन शैली, बिना कंद-मूल मसालों के"
+          },
+          "patchOps": [
+            {
+              "op": "remove-ingredient",
+              "ingredientId": "onion",
+              "reason": {
+                "en": "Onion is excluded from this Jain-authored version.",
+                "hi": "इस लिखित जैन रूप में प्याज़ नहीं है।"
+              }
+            },
+            {
+              "op": "remove-ingredient",
+              "ingredientId": "garlic",
+              "reason": {
+                "en": "Garlic is excluded from this Jain-authored version.",
+                "hi": "इस लिखित जैन रूप में लहसुन नहीं है।"
+              }
+            },
+            {
+              "op": "remove-ingredient",
+              "ingredientId": "ginger",
+              "reason": {
+                "en": "Ginger is a root and is omitted here.",
+                "hi": "अदरक कंद-मूल है, इसलिए इसे इस रूप में हटाया गया है।"
+              }
+            },
+            {
+              "op": "patch-ingredient",
+              "ingredientId": "asafoetida",
+              "patch": {
+                "canonical": { "qty": 1, "unit": "g" }
+              },
+              "reason": {
+                "en": "Hing carries the savoury aroma without root ingredients.",
+                "hi": "हींग कंद-मूल के बिना नमकीन खुशबू की गहराई देती है।"
+              }
+            },
+            {
+              "op": "remove-step",
+              "stepId": "saute-onion",
+              "reason": {
+                "en": "Remove the onion stage completely.",
+                "hi": "प्याज़ वाला चरण पूरी तरह हटाएँ।"
+              }
+            },
+            {
+              "op": "patch-step",
+              "stepId": "bloom-aromatics",
+              "patch": {
+                "dependsOn": ["crackle-cumin"],
+                "durationSec": 20,
+                "text": {
+                  "en": "Add green chilli and hing. Stir for 20 seconds, keeping the hing pale gold.",
+                  "hi": "हरी मिर्च और हींग डालें। 20 सेकंड चलाएँ और हींग को हल्का सुनहरा रखें।"
+                },
+                "spoken": {
+                  "en": "Green chilli and hing now—twenty seconds is enough. Stop before the hing turns brown.",
+                  "hi": "अब हरी मिर्च और हींग—बीस सेकंड काफी हैं। हींग भूरी होने से पहले रुक जाना।"
+                },
+                "note": {
+                  "en": "Replace the root-aromatic stage with a short hing bloom.",
+                  "hi": "कंद-मूल वाले चरण की जगह हींग को थोड़ी देर खिलाया जाता है।"
+                }
+              },
+              "reason": {
+                "en": "This is a separately authored Jain method, not an automatic filter.",
+                "hi": "यह अलग से लिखी जैन विधि है, कोई अपने-आप लगा फ़िल्टर नहीं।"
+              }
+            }
+          ]
+        }
+      ],
+      "ingredients": [
+        {
+          "id": "toor-dal",
+          "name": { "en": "Toor dal", "hi": "अरहर दाल" },
+          "canonical": { "qty": 180, "unit": "g" },
+          "prepState": {
+            "en": "picked over and rinsed until the water is almost clear",
+            "hi": "चुनकर तब तक धोई हुई जब तक पानी लगभग साफ़ हो जाए"
+          },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "other",
+            "exponent": 1
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "yellow-moong-dal",
+                "name": { "en": "Split yellow moong dal", "hi": "पीली मूंग दाल" }
+              },
+              "ratio": {
+                "sourceQty": 1,
+                "substituteQty": 1,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "The dal will be lighter and creamier, with a milder earthy taste.",
+                "hi": "दाल हल्की और ज़्यादा मुलायम बनेगी, मिट्टी-सी खुशबू थोड़ी कम होगी।"
+              },
+              "stepPatch": {
+                "stepId": "pressure-cook-dal",
+                "durationSec": 720,
+                "text": {
+                  "en": "Pressure-cook the rinsed moong dal with water and turmeric for 3 whistles, then lower the flame.",
+                  "hi": "धुली मूंग दाल को पानी और हल्दी के साथ 3 सीटी तक पकाएँ, फिर आँच धीमी करें।"
+                },
+                "spoken": {
+                  "en": "Moong cooks softer than toor. Keep the same three whistles, then turn the flame right down.",
+                  "hi": "मूंग अरहर से जल्दी नरम होती है। तीन सीटी रहने दो, फिर आँच बिल्कुल धीमी कर देना।"
+                },
+                "note": {
+                  "en": "Moong reaches a mashable texture sooner.",
+                  "hi": "मूंग जल्दी मसलने लायक नरम हो जाती है।"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "water",
+          "name": { "en": "Water", "hi": "पानी" },
+          "canonical": { "qty": 650, "unit": "ml" },
+          "prepState": { "en": "room temperature", "hi": "सामान्य तापमान पर" },
+          "scalingCurve": {
+            "kind": "absorption-table",
+            "ingredientClass": "water",
+            "points": [
+              { "servings": 2, "multiplier": 0.58 },
+              { "servings": 4, "multiplier": 1 },
+              { "servings": 6, "multiplier": 1.42 },
+              { "servings": 8, "multiplier": 1.82 }
+            ]
+          },
+          "substitutions": []
+        },
+        {
+          "id": "turmeric",
+          "name": { "en": "Turmeric powder", "hi": "हल्दी पाउडर" },
+          "canonical": { "qty": 2, "unit": "g" },
+          "prepState": { "en": "measured", "hi": "नापी हुई" },
+          "scalingCurve": {
+            "kind": "power",
+            "ingredientClass": "ground-spice",
+            "exponent": 0.85
+          },
+          "substitutions": []
+        },
+        {
+          "id": "salt",
+          "name": { "en": "Fine salt", "hi": "बारीक नमक" },
+          "canonical": { "qty": 6, "unit": "g" },
+          "prepState": { "en": "divided, then adjusted to taste", "hi": "अलग रखा हुआ, बाद में स्वाद अनुसार" },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "salt",
+            "exponent": 1
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "sendha-namak",
+                "name": { "en": "Sendha namak", "hi": "सेंधा नमक" }
+              },
+              "ratio": {
+                "sourceQty": 1,
+                "substituteQty": 1,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "It can taste slightly softer; add the last pinch only after tasting.",
+                "hi": "इसका नमकीनपन थोड़ा हल्का लग सकता है; आखिरी चुटकी चखने के बाद डालें।"
+              }
+            }
+          ]
+        },
+        {
+          "id": "tomato",
+          "name": { "en": "Ripe tomato", "hi": "पका टमाटर" },
+          "canonical": { "qty": 140, "unit": "g" },
+          "prepState": { "en": "finely chopped", "hi": "बारीक कटा हुआ" },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "other",
+            "exponent": 1
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "tomato-puree",
+                "name": { "en": "Plain tomato purée", "hi": "सादा टमाटर प्यूरी" }
+              },
+              "ratio": {
+                "sourceQty": 140,
+                "substituteQty": 100,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "Purée is more concentrated, so the tadka will be smoother and slightly tangier.",
+                "hi": "प्यूरी गाढ़ी होती है, इसलिए तड़का मुलायम और थोड़ा ज़्यादा खट्टा बनेगा।"
+              },
+              "stepPatch": {
+                "stepId": "bhuno-tomato",
+                "durationSec": 180,
+                "text": {
+                  "en": "Add tomato purée and the ground spices; cook until it darkens slightly and the ghee shows at the edge.",
+                  "hi": "टमाटर प्यूरी और पिसे मसाले डालें; हल्का गहरा होने और किनारे पर घी दिखने तक पकाएँ।"
+                },
+                "spoken": {
+                  "en": "Purée goes in with the spices. It is ready when it darkens a shade and the ghee peeks around the edge.",
+                  "hi": "प्यूरी मसालों के साथ डालो। रंग एक शेड गहरा हो और किनारे घी दिखे, तब तैयार है।"
+                },
+                "note": {
+                  "en": "Purée loses rawness faster than chopped tomato.",
+                  "hi": "प्यूरी का कच्चापन कटे टमाटर से जल्दी जाता है।"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "onion",
+          "name": { "en": "Onion", "hi": "प्याज़" },
+          "canonical": { "qty": 100, "unit": "g" },
+          "prepState": { "en": "finely chopped", "hi": "बारीक कटा हुआ" },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "other",
+            "exponent": 1
+          },
+          "substitutions": []
+        },
+        {
+          "id": "ginger",
+          "name": { "en": "Fresh ginger", "hi": "ताज़ा अदरक" },
+          "canonical": { "qty": 10, "unit": "g" },
+          "prepState": { "en": "finely grated", "hi": "बारीक कद्दूकस की हुई" },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "other",
+            "exponent": 1
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "ginger-paste",
+                "name": { "en": "Plain ginger paste", "hi": "सादा अदरक पेस्ट" }
+              },
+              "ratio": {
+                "sourceQty": 10,
+                "substituteQty": 8,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "Paste is stronger and wetter; it may splutter briefly.",
+                "hi": "पेस्ट ज़्यादा तेज़ और गीला होता है; डालते समय थोड़ा छींटा आ सकता है।"
+              }
+            }
+          ]
+        },
+        {
+          "id": "garlic",
+          "name": { "en": "Garlic", "hi": "लहसुन" },
+          "canonical": { "qty": 14, "unit": "g" },
+          "prepState": { "en": "thinly sliced", "hi": "पतला कटा हुआ" },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "other",
+            "exponent": 1
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "extra-asafoetida",
+                "name": { "en": "Extra asafoetida", "hi": "अतिरिक्त हींग" }
+              },
+              "ratio": {
+                "sourceQty": 14,
+                "substituteQty": 0.5,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "The result will lack roasted-garlic sweetness but retain savoury depth.",
+                "hi": "भुने लहसुन की मिठास नहीं आएगी, पर नमकीन गहराई बनी रहेगी।"
+              },
+              "stepPatch": {
+                "stepId": "bloom-aromatics",
+                "durationSec": 25,
+                "text": {
+                  "en": "Add ginger, green chilli and the extra hing; stir for 25 seconds without browning the hing.",
+                  "hi": "अदरक, हरी मिर्च और अतिरिक्त हींग डालें; हींग को भूरा किए बिना 25 सेकंड चलाएँ।"
+                },
+                "spoken": {
+                  "en": "Use the extra hing now with ginger and chilli. Twenty-five seconds—keep it pale gold.",
+                  "hi": "अब अदरक और मिर्च के साथ अतिरिक्त हींग डालो। पच्चीस सेकंड—रंग हल्का सुनहरा रहे।"
+                },
+                "note": {
+                  "en": "Hing replaces savoury depth, not the exact garlic flavour.",
+                  "hi": "हींग नमकीन गहराई देती है, लहसुन का बिल्कुल वही स्वाद नहीं।"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "green-chilli",
+          "name": { "en": "Green chilli", "hi": "हरी मिर्च" },
+          "canonical": { "qty": 5, "unit": "g" },
+          "prepState": { "en": "slit lengthwise", "hi": "लंबाई में चीरी हुई" },
+          "scalingCurve": {
+            "kind": "power",
+            "ingredientClass": "green-chilli",
+            "exponent": 0.8
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "extra-red-chilli-powder",
+                "name": { "en": "Extra red chilli powder", "hi": "अतिरिक्त लाल मिर्च पाउडर" }
+              },
+              "ratio": {
+                "sourceQty": 5,
+                "substituteQty": 0.5,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "Heat will be rounder and less fresh; begin with half and taste later.",
+                "hi": "तीखापन कम ताज़ा और ज़्यादा गोल होगा; पहले आधा डालें, बाद में चखें।"
+              }
+            }
+          ]
+        },
+        {
+          "id": "ghee",
+          "name": { "en": "Ghee", "hi": "घी" },
+          "canonical": { "qty": 28, "unit": "ml" },
+          "prepState": { "en": "measured", "hi": "नापा हुआ" },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "fat",
+            "exponent": 1
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "neutral-oil",
+                "name": { "en": "Neutral cooking oil", "hi": "हल्का खाने का तेल" }
+              },
+              "ratio": {
+                "sourceQty": 1,
+                "substituteQty": 1,
+                "substituteUnit": "ml"
+              },
+              "flavorNote": {
+                "en": "The tadka will be lighter and will miss ghee's nutty finish, but the method is unchanged.",
+                "hi": "तड़का हल्का रहेगा और घी की मेवेदार खुशबू कम होगी, पर तरीका वही है।"
+              }
+            }
+          ]
+        },
+        {
+          "id": "cumin",
+          "name": { "en": "Cumin seeds", "hi": "जीरा" },
+          "canonical": { "qty": 4, "unit": "g" },
+          "prepState": { "en": "whole", "hi": "साबुत" },
+          "scalingCurve": {
+            "kind": "power",
+            "ingredientClass": "whole-spice",
+            "exponent": 0.7
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "ajwain",
+                "name": { "en": "Ajwain seeds", "hi": "अजवाइन" }
+              },
+              "ratio": {
+                "sourceQty": 4,
+                "substituteQty": 2,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "Ajwain is sharper and more herbal, so use half as much.",
+                "hi": "अजवाइन ज़्यादा तेज़ और जड़ी-बूटी जैसी है, इसलिए आधी मात्रा लें।"
+              }
+            }
+          ]
+        },
+        {
+          "id": "asafoetida",
+          "name": { "en": "Asafoetida", "hi": "हींग" },
+          "canonical": { "qty": 0.5, "unit": "g" },
+          "prepState": { "en": "kept dry", "hi": "सूखी रखी हुई" },
+          "scalingCurve": {
+            "kind": "power",
+            "ingredientClass": "ground-spice",
+            "exponent": 0.7
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "ajwain-for-hing",
+                "name": { "en": "A small pinch of ajwain", "hi": "थोड़ी-सी अजवाइन" }
+              },
+              "ratio": {
+                "sourceQty": 0.5,
+                "substituteQty": 0.3,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "It will not mimic hing, but adds a warm digestive aroma.",
+                "hi": "हींग जैसा स्वाद नहीं आएगा, पर गरम और सुगंधित स्वाद मिलेगा।"
+              }
+            }
+          ]
+        },
+        {
+          "id": "red-chilli-powder",
+          "name": { "en": "Kashmiri red chilli powder", "hi": "कश्मीरी लाल मिर्च पाउडर" },
+          "canonical": { "qty": 2, "unit": "g" },
+          "prepState": { "en": "measured", "hi": "नापा हुआ" },
+          "scalingCurve": {
+            "kind": "power",
+            "ingredientClass": "ground-spice",
+            "exponent": 0.8
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "black-pepper",
+                "name": { "en": "Freshly ground black pepper", "hi": "ताज़ी पिसी काली मिर्च" }
+              },
+              "ratio": {
+                "sourceQty": 2,
+                "substituteQty": 1,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "The colour will be paler and the heat more peppery than fruity.",
+                "hi": "रंग हल्का रहेगा और तीखापन फलदार की जगह काली-मिर्च जैसा होगा।"
+              }
+            }
+          ]
+        },
+        {
+          "id": "coriander",
+          "name": { "en": "Fresh coriander", "hi": "हरा धनिया" },
+          "canonical": { "qty": 12, "unit": "g" },
+          "prepState": { "en": "roughly chopped", "hi": "मोटा कटा हुआ" },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "garnish",
+            "exponent": 1
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "kasuri-methi",
+                "name": { "en": "Kasuri methi", "hi": "कसूरी मेथी" }
+              },
+              "ratio": {
+                "sourceQty": 12,
+                "substituteQty": 2,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "The finish becomes deeper and more restaurant-like rather than fresh.",
+                "hi": "अंतिम खुशबू ताज़ी की जगह गहरी और थोड़ी रेस्तराँ जैसी होगी।"
+              },
+              "stepPatch": {
+                "stepId": "finish-garnish",
+                "text": {
+                  "en": "Crush kasuri methi between your palms, stir it in, then rest the dal for 2 minutes.",
+                  "hi": "कसूरी मेथी हथेलियों के बीच मसलकर डालें, चलाएँ और दाल को 2 मिनट आराम दें।"
+                },
+                "spoken": {
+                  "en": "Crush the kasuri methi between your palms and stir it through. Give the dal two quiet minutes before serving.",
+                  "hi": "कसूरी मेथी हथेलियों में मसलकर दाल में मिला दो। परोसने से पहले दो मिनट चुपचाप रहने दो।"
+                },
+                "note": {
+                  "en": "Dried methi needs a short rest to release its aroma.",
+                  "hi": "सूखी मेथी की खुशबू खुलने के लिए थोड़ा आराम ज़रूरी है।"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "lemon",
+          "name": { "en": "Lemon juice", "hi": "नींबू का रस" },
+          "canonical": { "qty": 15, "unit": "ml" },
+          "prepState": { "en": "freshly squeezed, seeds removed", "hi": "ताज़ा निचोड़ा हुआ, बीज निकाले हुए" },
+          "scalingCurve": {
+            "kind": "linear",
+            "ingredientClass": "acid",
+            "exponent": 1
+          },
+          "substitutions": [
+            {
+              "substitute": {
+                "id": "amchur",
+                "name": { "en": "Amchur powder", "hi": "अमचूर पाउडर" }
+              },
+              "ratio": {
+                "sourceQty": 15,
+                "substituteQty": 2,
+                "substituteUnit": "g"
+              },
+              "flavorNote": {
+                "en": "Amchur gives a softer, earthy sourness instead of lemon's fresh lift.",
+                "hi": "अमचूर नींबू की ताज़गी की जगह हल्की, मिट्टी-सी खटास देगा।"
+              },
+              "stepPatch": {
+                "stepId": "finish-garnish",
+                "text": {
+                  "en": "Turn off the heat, stir in amchur and coriander, then rest for 2 minutes.",
+                  "hi": "आँच बंद करके अमचूर और हरा धनिया मिलाएँ, फिर 2 मिनट आराम दें।"
+                },
+                "spoken": {
+                  "en": "Heat off. Stir in the amchur and coriander now, then let the dal settle for two minutes.",
+                  "hi": "आँच बंद। अब अमचूर और हरा धनिया मिलाओ, फिर दाल को दो मिनट बैठने दो।"
+                },
+                "note": {
+                  "en": "Amchur is added off heat so it stays bright rather than bitter.",
+                  "hi": "अमचूर आँच बंद करके डालें ताकि खटास साफ़ रहे, कड़वी न हो।"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "id": "pressure-cook-dal",
+          "n": 1,
+          "dependsOn": [],
+          "text": {
+            "en": "Put the rinsed dal, 500 ml water and turmeric in the pressure cooker. Lock the lid; cook on high for 3 whistles, then lower the flame.",
+            "hi": "धुली दाल, 500 मिली पानी और हल्दी कुकर में डालें। ढक्कन बंद करें; तेज़ आँच पर 3 सीटी आने तक पकाएँ, फिर आँच धीमी करें।"
+          },
+          "spoken": {
+            "en": "Dal, five hundred ml water and turmeric go into the cooker. Lock it properly. We are listening for three whistles on high heat.",
+            "hi": "दाल, पाँच सौ मिली पानी और हल्दी कुकर में डाल दो। ढक्कन ठीक से बंद करो। तेज़ आँच पर हमें तीन सीटी गिननी हैं।"
+          },
+          "durationSec": 900,
+          "attention": "passive",
+          "risk": "high",
+          "flameLevel": 5,
+          "cookwareNotes": {
+            "cooker": {
+              "en": "Use at least a 3-litre cooker and keep it below half full. Check that the vent and gasket are clear before locking.",
+              "hi": "कम-से-कम 3 लीटर का कुकर लें और उसे आधे से कम भरें। बंद करने से पहले वेंट और गैस्केट साफ़ देखें।"
+            }
+          },
+          "whistles": {
+            "count": 3,
+            "thenFlame": 1,
+            "thenDurationSec": 300,
+            "calibrationPrompt": {
+              "en": "I heard a whistle. Was that your cooker? Say yes or no, or use the large buttons.",
+              "hi": "मुझे सीटी सुनाई दी। क्या वह आपके कुकर की थी? हाँ या नहीं बोलें, या बड़े बटन दबाएँ।"
+            },
+            "manualFallback": {
+              "tapLabel": {
+                "en": "+1 whistle",
+                "hi": "+1 सीटी"
+              },
+              "voiceExamples": {
+                "en": ["one whistle happened", "count one whistle"],
+                "hi": ["एक सीटी हुई", "एक सीटी गिनो"],
+                "hinglish": ["ek seeti ho gayi", "one seeti count karo"]
+              }
+            },
+            "onTarget": "advance-and-speak"
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/01-cooker-loaded.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "The cooker is locked, the valve is clear, and a steady plume appears before the first whistle.",
+                "hi": "कुकर ठीक से बंद है, वाल्व साफ़ है और पहली सीटी से पहले भाप की सीधी धार दिखती है।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "no-whistle",
+              "failure": {
+                "en": "No whistle after a long time",
+                "hi": "काफी देर बाद भी सीटी नहीं आई"
+              },
+              "clarify": {
+                "en": "Is steam escaping steadily from the lid edge or is there almost no steam?",
+                "hi": "क्या ढक्कन के किनारे से लगातार भाप निकल रही है, या भाप लगभग नहीं है?"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Turn the heat off. Do not open it under pressure. Once the pin drops, check the gasket, vent and water before restarting.",
+                  "hi": "आँच बंद कर दो। दबाव रहते कुकर मत खोलना। पिन नीचे आने पर गैस्केट, वेंट और पानी जाँचकर ही दोबारा शुरू करना।"
+                },
+                "written": {
+                  "en": "Switch off. Wait for pressure to release naturally, then check the gasket seating, clear the vent, and confirm there is enough water before relocking.",
+                  "hi": "आँच बंद करें। दबाव अपने-आप निकलने दें, फिर गैस्केट ठीक बैठी है या नहीं, वेंट साफ़ है या नहीं और पानी पर्याप्त है या नहीं जाँचकर बंद करें।"
+                }
+              },
+              "photoPair": {
+                "recoverable": "/assets/recipes/dal-tadka/recovery/cooker-steady-steam.webp",
+                "adjustRecipe": "/assets/recipes/dal-tadka/recovery/cooker-rim-leak.webp"
+              }
+            },
+            {
+              "id": "rim-steam-leak",
+              "failure": {
+                "en": "Steam is leaking around the rim",
+                "hi": "ढक्कन के किनारे से भाप निकल रही है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Switch off now and step back. Let all pressure fall by itself. Reseat or replace the gasket only when the cooker is fully cool.",
+                  "hi": "अभी आँच बंद करके थोड़ा पीछे हटो। दबाव अपने-आप खत्म होने दो। कुकर पूरी तरह ठंडा होने पर ही गैस्केट ठीक करो या बदलो।"
+                },
+                "written": {
+                  "en": "Turn off the burner. Do not touch or force the lid. After complete cooling, clean and reseat the gasket; replace it if cracked or loose.",
+                  "hi": "बर्नर बंद करें। ढक्कन को छुएँ या ज़बरदस्ती न खोलें। पूरी तरह ठंडा होने पर गैस्केट साफ़ करके लगाएँ; फटा या ढीला हो तो बदलें।"
+                }
+              }
+            }
+          ],
+          "checkInIntervalSec": 90
+        },
+        {
+          "id": "low-simmer-cooker",
+          "n": 2,
+          "dependsOn": ["pressure-cook-dal"],
+          "text": {
+            "en": "After the third whistle, lower the flame to level 1 and cook for 5 minutes without opening the cooker.",
+            "hi": "तीसरी सीटी के बाद आँच स्तर 1 पर करें और कुकर खोले बिना 5 मिनट पकाएँ।"
+          },
+          "spoken": {
+            "en": "Three whistles done. Take the flame right down and leave the cooker alone for five minutes. I have started the timer.",
+            "hi": "तीन सीटी पूरी। आँच बिल्कुल धीमी कर दो और कुकर को पाँच मिनट मत छेड़ो। मैंने टाइमर शुरू कर दिया है।"
+          },
+          "durationSec": 300,
+          "attention": "passive",
+          "risk": "high",
+          "flameLevel": 1,
+          "cookwareNotes": {
+            "cooker": {
+              "en": "A faint hiss is fine; repeated whistles mean the flame is still too high.",
+              "hi": "हल्की फुफकार ठीक है; बार-बार सीटी आए तो आँच अभी भी तेज़ है।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/02-low-simmer.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "The cooker is quiet or gently hissing, with no forceful repeated whistles.",
+                "hi": "कुकर शांत है या हल्की फुफकार है, तेज़ और बार-बार सीटी नहीं आ रही।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "repeated-whistles",
+              "failure": {
+                "en": "The cooker keeps whistling on low",
+                "hi": "धीमी आँच पर भी कुकर बार-बार सीटी दे रहा है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Move it to the smallest burner and lower the flame until it only whispers. Keep the five-minute timer running.",
+                  "hi": "कुकर को सबसे छोटे बर्नर पर रखो और आँच इतनी धीमी करो कि बस हल्की फुफकार रहे। पाँच मिनट का टाइमर चलता रहने दो।"
+                },
+                "written": {
+                  "en": "Use the smallest burner at its lowest stable flame. Do not obstruct the vent or touch the weight.",
+                  "hi": "सबसे छोटे बर्नर की सबसे धीमी स्थिर आँच लें। वेंट को बंद न करें और सीटी के वज़न को न छुएँ।"
+                }
+              }
+            },
+            {
+              "id": "flame-went-out",
+              "failure": {
+                "en": "The gas flame went out",
+                "hi": "गैस की लौ बुझ गई"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Turn the knob fully off first. Ventilate for a minute, then relight safely and resume the remaining time on the lowest flame.",
+                  "hi": "पहले नॉब पूरी तरह बंद करो। एक मिनट हवा आने दो, फिर सुरक्षित तरीके से जलाकर बचा समय सबसे धीमी आँच पर पूरा करो।"
+                },
+                "written": {
+                  "en": "Set the gas control to off, ventilate, and relight only when no gas smell remains. Resume the saved timer remainder.",
+                  "hi": "गैस नॉब बंद करें, हवा आने दें और गैस की गंध खत्म होने पर ही दोबारा जलाएँ। बचा हुआ टाइमर फिर चलाएँ।"
+                }
+              }
+            }
+          ],
+          "checkInIntervalSec": 60
+        },
+        {
+          "id": "release-pressure",
+          "n": 3,
+          "dependsOn": ["low-simmer-cooker"],
+          "text": {
+            "en": "Turn off the heat and let the pressure release naturally. Open only after the pressure indicator drops fully.",
+            "hi": "आँच बंद करें और दबाव अपने-आप निकलने दें। प्रेशर इंडिकेटर पूरी तरह नीचे आने पर ही खोलें।"
+          },
+          "spoken": {
+            "en": "Heat off now. Leave the cooker exactly where it is. We open only when the pressure pin has dropped all the way.",
+            "hi": "अब आँच बंद। कुकर को वहीं रहने दो। प्रेशर पिन पूरी तरह नीचे आए तभी खोलेंगे।"
+          },
+          "durationSec": 600,
+          "attention": "passive",
+          "risk": "normal",
+          "flameLevel": 1,
+          "cookwareNotes": {
+            "cooker": {
+              "en": "Do not lift the weight, run water over a hot cooker, or force the lid.",
+              "hi": "सीटी का वज़न न उठाएँ, गरम कुकर पर पानी न डालें और ढक्कन ज़बरदस्ती न खोलें।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/03-pressure-released.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "The pressure pin is fully down and no steam escapes when the cooker is gently approached.",
+                "hi": "प्रेशर पिन पूरी तरह नीचे है और पास जाने पर भाप नहीं निकल रही।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "pressure-not-dropping",
+              "failure": {
+                "en": "The pressure pin has not dropped after 15 minutes",
+                "hi": "15 मिनट बाद भी प्रेशर पिन नीचे नहीं आया"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Keep waiting with the burner off. Do not touch the valve. A full cooker can take longer; safety matters more than the clock.",
+                  "hi": "बर्नर बंद रखकर इंतज़ार करते रहो। वाल्व मत छूना। भरे कुकर में समय लग सकता है; घड़ी से ज़्यादा सुरक्षा ज़रूरी है।"
+                },
+                "written": {
+                  "en": "Leave the cooker undisturbed until the indicator falls naturally. If it remains pressurized unusually long, follow the manufacturer's safety guidance.",
+                  "hi": "इंडिकेटर अपने-आप नीचे आने तक कुकर न छेड़ें। असामान्य रूप से देर तक दबाव रहे तो निर्माता के सुरक्षा निर्देश मानें।"
+                }
+              }
+            },
+            {
+              "id": "opened-too-soon",
+              "failure": {
+                "en": "The lid feels stuck",
+                "hi": "ढक्कन अटका हुआ लग रहा है"
+              },
+              "clarify": {
+                "en": "Is the pressure indicator completely down?",
+                "hi": "क्या प्रेशर इंडिकेटर पूरी तरह नीचे है?"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Do not force it. Step back and wait another five minutes. Try only after the pin is fully down and the cooker has stopped hissing.",
+                  "hi": "ज़ोर मत लगाओ। पीछे हटकर पाँच मिनट और रुको। पिन पूरी नीचे हो और फुफकार बंद हो तभी कोशिश करना।"
+                },
+                "written": {
+                  "en": "Never force a pressure-cooker lid. Wait for zero pressure, then follow the cooker's normal opening direction.",
+                  "hi": "प्रेशर कुकर का ढक्कन कभी ज़बरदस्ती न खोलें। दबाव शून्य होने पर सामान्य दिशा में खोलें।"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "adjust-dal",
+          "n": 4,
+          "dependsOn": ["release-pressure"],
+          "text": {
+            "en": "Open the cooker, mash the soft dal, then stir in salt and 100–150 ml water until it pours in a thick ribbon.",
+            "hi": "कुकर खोलकर नरम दाल मसलें, फिर नमक और 100–150 मिली पानी मिलाएँ ताकि दाल मोटी धार में बहे।"
+          },
+          "spoken": {
+            "en": "The dal should crush with one press. Mash it, add the salt, then add water little by little until it falls from the spoon in a thick ribbon.",
+            "hi": "दाल एक दबाव में मसल जानी चाहिए। इसे मसलो, नमक डालो, फिर थोड़ा-थोड़ा पानी डालकर मोटी धार जैसी कर लो।"
+          },
+          "durationSec": 180,
+          "attention": "active",
+          "risk": "normal",
+          "flameLevel": 1,
+          "cookwareNotes": {
+            "cooker": {
+              "en": "Mash directly in the cooled, depressurized cooker with a wooden or silicone tool.",
+              "hi": "ठंडे और बिना दबाव वाले कुकर में लकड़ी या सिलिकॉन के औज़ार से दाल मसलें।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/04-mashed-consistency.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "Dal grains collapse easily and the mixture falls from a spoon in a thick, continuous ribbon.",
+                "hi": "दाल के दाने आसानी से गलते हैं और मिश्रण चम्मच से मोटी, लगातार धार में गिरता है।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "dal-too-thick",
+              "failure": {
+                "en": "The dal is standing like paste",
+                "hi": "दाल पेस्ट जैसी खड़ी है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Add warm water two tablespoons at a time, stir well, and stop when it pours in a thick ribbon.",
+                  "hi": "दो-दो बड़े चम्मच गरम पानी डालकर अच्छी तरह चलाओ। मोटी धार बनने पर रुक जाना।"
+                },
+                "written": {
+                  "en": "Loosen gradually with warm water in 30 ml additions; do not add the full amount at once.",
+                  "hi": "30-30 मिली गरम पानी डालकर धीरे-धीरे पतला करें; सारा पानी एक साथ न डालें।"
+                }
+              },
+              "photoPair": {
+                "recoverable": "/assets/recipes/dal-tadka/recovery/dal-thick-ribbon.webp",
+                "adjustRecipe": "/assets/recipes/dal-tadka/recovery/dal-paste-thick.webp"
+              }
+            },
+            {
+              "id": "dal-not-soft",
+              "failure": {
+                "en": "The dal grains are still firm",
+                "hi": "दाल के दाने अभी भी सख्त हैं"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Add a quarter cup of hot water, relock the cooker, and cook for one more whistle. Release pressure naturally again.",
+                  "hi": "चौथाई कप गरम पानी डालो, कुकर फिर बंद करो और एक सीटी और पकाओ। दबाव फिर अपने-आप निकलने देना।"
+                },
+                "written": {
+                  "en": "Add 60 ml hot water and pressure-cook for one additional whistle. Do not continue to the tadka until the grains mash easily.",
+                  "hi": "60 मिली गरम पानी डालकर एक अतिरिक्त सीटी पकाएँ। दाने आसानी से गलने तक तड़का शुरू न करें।"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "crackle-cumin",
+          "n": 5,
+          "dependsOn": ["adjust-dal"],
+          "text": {
+            "en": "Heat ghee in a small kadhai on medium-high. Add cumin; let it crackle and turn one shade darker, 20–30 seconds.",
+            "hi": "छोटी कड़ाही में मध्यम-तेज़ आँच पर घी गरम करें। जीरा डालकर 20–30 सेकंड चटकने और एक रंग गहरा होने दें।"
+          },
+          "spoken": {
+            "en": "Ghee into the small kadhai, medium-high heat. Add the cumin now. Listen for the crackle and watch for one shade darker—that is the cue.",
+            "hi": "छोटी कड़ाही में घी, आँच मध्यम-तेज़। अब जीरा डालो। चटकने की आवाज़ और एक रंग गहरा होना—यही संकेत है।"
+          },
+          "durationSec": 45,
+          "attention": "active",
+          "risk": "high",
+          "flameLevel": 4,
+          "cookwareNotes": {
+            "kadhai": {
+              "en": "A thin steel kadhai heats fast; begin at level 3 and increase only if cumin stays quiet.",
+              "hi": "पतली स्टील कड़ाही जल्दी गरम होती है; स्तर 3 से शुरू करें और जीरा शांत रहे तभी बढ़ाएँ।"
+            },
+            "nonstick": {
+              "en": "Keep below the pan maker's maximum heat; medium is enough for cumin.",
+              "hi": "पैन की तय अधिकतम आँच से नीचे रहें; जीरे के लिए मध्यम आँच काफी है।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/05-cumin-crackle.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "Cumin actively crackles, smells nutty, and is medium brown—not black.",
+                "hi": "जीरा चटक रहा है, मेवेदार खुशबू आ रही है और रंग मध्यम भूरा है—काला नहीं।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "cumin-black",
+              "failure": {
+                "en": "The cumin turned black or smells bitter",
+                "hi": "जीरा काला हो गया या कड़वी गंध आ रही है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Take the kadhai off the heat. Burnt cumin will bitter the whole dal, so discard this small tadka, wipe the pan, and restart with fresh ghee on lower heat.",
+                  "hi": "कड़ाही आँच से हटा लो। जला जीरा पूरी दाल कड़वी करेगा, इसलिए यह थोड़ा तड़का फेंको, पैन पोंछो और धीमी आँच पर नया घी लेकर फिर शुरू करो।"
+                },
+                "written": {
+                  "en": "Discard only the burnt tadka, not the cooked dal. Wipe the kadhai clean and restart this step at one heat level lower.",
+                  "hi": "सिर्फ़ जला तड़का फेंकें, पकी दाल नहीं। कड़ाही पोंछकर एक स्तर धीमी आँच पर यह चरण फिर करें।"
+                }
+              },
+              "photoPair": {
+                "recoverable": "/assets/recipes/dal-tadka/recovery/cumin-golden.webp",
+                "adjustRecipe": "/assets/recipes/dal-tadka/recovery/cumin-burnt.webp"
+              }
+            },
+            {
+              "id": "cumin-not-crackling",
+              "failure": {
+                "en": "The cumin is not crackling",
+                "hi": "जीरा चटक नहीं रहा"
+              },
+              "clarify": {
+                "en": "Is the ghee shimmering, or is it still completely still?",
+                "hi": "क्या घी चमक रहा है, या अभी बिल्कुल स्थिर है?"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Give it ten more seconds and raise the heat by one level. The moment cumin starts crackling, continue—do not wait for smoke.",
+                  "hi": "दस सेकंड और दो और आँच एक स्तर बढ़ाओ। जीरा चटकते ही आगे बढ़ना—धुआँ आने का इंतज़ार मत करना।"
+                },
+                "written": {
+                  "en": "Increase heat gradually. Continue as soon as seeds crackle; smoking ghee is too hot.",
+                  "hi": "आँच धीरे बढ़ाएँ। जीरा चटकते ही आगे बढ़ें; घी से धुआँ आना बहुत ज़्यादा गरम होने का संकेत है।"
+                }
+              }
+            }
+          ],
+          "checkInIntervalSec": 20
+        },
+        {
+          "id": "saute-onion",
+          "n": 6,
+          "dependsOn": ["crackle-cumin"],
+          "text": {
+            "en": "Add onion with a pinch of salt. Cook on medium, stirring often, until soft and golden at the edges, 5–6 minutes.",
+            "hi": "प्याज़ और एक चुटकी नमक डालें। मध्यम आँच पर बार-बार चलाते हुए 5–6 मिनट, नरम और किनारों से सुनहरा होने तक पकाएँ।"
+          },
+          "spoken": {
+            "en": "Onion and a pinch of salt go in. Keep it moving on medium heat. We want soft onion with golden edges, not dark brown.",
+            "hi": "प्याज़ और एक चुटकी नमक डालो। मध्यम आँच पर चलाते रहो। प्याज़ नरम और किनारों से सुनहरा चाहिए, गहरा भूरा नहीं।"
+          },
+          "durationSec": 330,
+          "attention": "active",
+          "risk": "high",
+          "flameLevel": 3,
+          "cookwareNotes": {
+            "kadhai": {
+              "en": "In steel, scrape the base every 15–20 seconds and add a teaspoon of water if browned bits stick hard.",
+              "hi": "स्टील में हर 15–20 सेकंड तली खुरचें; भूरे टुकड़े ज़्यादा चिपकें तो एक छोटा चम्मच पानी डालें।"
+            },
+            "nonstick": {
+              "en": "Use a silicone or wooden spatula and avoid high heat.",
+              "hi": "सिलिकॉन या लकड़ी की कलछी लें और तेज़ आँच से बचें।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/06-onion-golden.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "Onion is translucent and soft with scattered golden edges; no raw sharp smell remains.",
+                "hi": "प्याज़ पारदर्शी और नरम है, कुछ किनारे सुनहरे हैं और कच्ची तीखी गंध नहीं बची।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "onion-catching",
+              "failure": {
+                "en": "The onion is sticking or browning too fast",
+                "hi": "प्याज़ चिपक रहा है या बहुत जल्दी भूरा हो रहा है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Lower the heat one level, add one teaspoon of water, and scrape up the golden bits. Keep stirring until the onion softens.",
+                  "hi": "आँच एक स्तर कम करो, एक छोटा चम्मच पानी डालो और सुनहरे टुकड़े खुरचो। प्याज़ नरम होने तक चलाते रहो।"
+                },
+                "written": {
+                  "en": "Reduce heat, deglaze with 5 ml water, and stir continuously for 30 seconds.",
+                  "hi": "आँच कम करें, 5 मिली पानी से तली छुड़ाएँ और 30 सेकंड लगातार चलाएँ।"
+                }
+              }
+            },
+            {
+              "id": "onion-still-raw",
+              "failure": {
+                "en": "The timer ended but onion still smells raw",
+                "hi": "टाइमर खत्म हुआ पर प्याज़ अभी भी कच्चा महक रहा है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Time is only a guide. Give it another minute on medium-low, stirring often, and follow the soft golden-edge cue.",
+                  "hi": "समय सिर्फ़ अंदाज़ा है। मध्यम-धीमी आँच पर एक मिनट और बार-बार चलाओ और नरम सुनहरे किनारे देखो।"
+                },
+                "written": {
+                  "en": "Continue in 60-second increments until translucent and lightly golden; do not raise to high heat.",
+                  "hi": "पारदर्शी और हल्का सुनहरा होने तक 60-60 सेकंड बढ़ाएँ; तेज़ आँच न करें।"
+                }
+              }
+            }
+          ],
+          "checkInIntervalSec": 30
+        },
+        {
+          "id": "bloom-aromatics",
+          "n": 7,
+          "dependsOn": ["saute-onion"],
+          "text": {
+            "en": "Add garlic, ginger, green chilli and hing. Stir on medium for 45–60 seconds until fragrant and the garlic is pale gold.",
+            "hi": "लहसुन, अदरक, हरी मिर्च और हींग डालें। मध्यम आँच पर 45–60 सेकंड चलाएँ, खुशबू आने और लहसुन हल्का सुनहरा होने तक।"
+          },
+          "spoken": {
+            "en": "Garlic, ginger, green chilli and hing go in now. Keep stirring. Stop at pale-gold garlic—the colour changes quickly here.",
+            "hi": "अब लहसुन, अदरक, हरी मिर्च और हींग डालो। चलाते रहो। लहसुन हल्का सुनहरा होते ही रुकना—यहाँ रंग जल्दी बदलता है।"
+          },
+          "durationSec": 60,
+          "attention": "active",
+          "risk": "high",
+          "flameLevel": 3,
+          "cookwareNotes": {
+            "kadhai": {
+              "en": "A heavy kadhai holds heat; lift it off the burner briefly if garlic colours before ginger loses its raw smell.",
+              "hi": "भारी कड़ाही गर्मी रोकती है; अदरक की कच्ची गंध जाने से पहले लहसुन रंग बदले तो कड़ाही थोड़ी देर आँच से उठा लें।"
+            },
+            "nonstick": {
+              "en": "Medium-low is enough because the broad base cooks sliced garlic quickly.",
+              "hi": "चौड़ी तली में कटा लहसुन जल्दी पकता है, इसलिए मध्यम-धीमी आँच काफी है।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/07-aromatics-pale-gold.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "Garlic edges are pale gold, ginger no longer smells raw, and hing smells savoury rather than sharp.",
+                "hi": "लहसुन के किनारे हल्के सुनहरे हैं, अदरक की कच्ची गंध गई है और हींग की खुशबू तीखी नहीं, नमकीन है।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "garlic-darkening",
+              "failure": {
+                "en": "The garlic is turning dark brown",
+                "hi": "लहसुन गहरा भूरा हो रहा है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Lift the kadhai off the heat and add the tomato immediately. Its moisture will stop the browning. If the garlic is black and bitter, restart only the tadka.",
+                  "hi": "कड़ाही आँच से उठाकर तुरंत टमाटर डालो। उसकी नमी रंग बढ़ना रोकेगी। लहसुन काला और कड़वा हो गया हो तो सिर्फ़ तड़का फिर बनाओ।"
+                },
+                "written": {
+                  "en": "For dark brown but not burnt garlic, cool with tomato and continue. For black, acrid garlic, discard and restart the tadka.",
+                  "hi": "गहरा भूरा पर न जला लहसुन हो तो टमाटर डालकर आगे बढ़ें। काला और कड़वा हो तो तड़का फेंककर फिर बनाएँ।"
+                }
+              },
+              "photoPair": {
+                "recoverable": "/assets/recipes/dal-tadka/recovery/garlic-pale-gold.webp",
+                "adjustRecipe": "/assets/recipes/dal-tadka/recovery/garlic-burnt.webp"
+              }
+            },
+            {
+              "id": "wet-aromatics-splutter",
+              "failure": {
+                "en": "The aromatics are spluttering hard",
+                "hi": "मसाले बहुत तेज़ छींटे दे रहे हैं"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Step back, lower the flame, and cover loosely for ten seconds. Do not add water to hot fat.",
+                  "hi": "थोड़ा पीछे हटो, आँच धीमी करो और दस सेकंड ढक्कन हल्का रखो। गरम घी में पानी मत डालना।"
+                },
+                "written": {
+                  "en": "Reduce heat and use a splatter screen or loosely held lid. Never pour water directly into hot fat.",
+                  "hi": "आँच कम करें और जाली या हल्का रखा ढक्कन इस्तेमाल करें। गरम घी में सीधे पानी कभी न डालें।"
+                }
+              }
+            }
+          ],
+          "checkInIntervalSec": 20
+        },
+        {
+          "id": "bhuno-tomato",
+          "n": 8,
+          "dependsOn": ["bloom-aromatics"],
+          "text": {
+            "en": "Add tomato and red chilli powder. Bhuno on medium, stirring and scraping, until jammy and the ghee glints at the edge, 5–6 minutes.",
+            "hi": "टमाटर और लाल मिर्च पाउडर डालें। मध्यम आँच पर चलाते और तली खुरचते हुए 5–6 मिनट भूनें, गाढ़ा होने और किनारे घी चमकने तक।"
+          },
+          "spoken": {
+            "en": "Tomato and red chilli go in. Keep scraping the base. We are waiting for a jammy masala and a little line of ghee at the edge, not just the timer.",
+            "hi": "टमाटर और लाल मिर्च डालो। तली खुरचते रहो। हमें जैम जैसा मसाला और किनारे घी की हल्की लकीर चाहिए, सिर्फ़ टाइमर नहीं देखना।"
+          },
+          "durationSec": 360,
+          "attention": "active",
+          "risk": "high",
+          "flameLevel": 3,
+          "cookwareNotes": {
+            "kadhai": {
+              "en": "Steel may form a golden fond; loosen it with one tablespoon of water before it turns dark.",
+              "hi": "स्टील में सुनहरी परत बन सकती है; गहरी होने से पहले एक बड़ा चम्मच पानी डालकर छुड़ाएँ।"
+            },
+            "nonstick": {
+              "en": "Use medium heat and a silicone spatula; the masala may show less obvious sticking.",
+              "hi": "मध्यम आँच और सिलिकॉन कलछी लें; मसाले का चिपकना कम दिखाई दे सकता है।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/08-tomato-bhuno.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "Tomato pieces have collapsed, the raw sour smell is gone, and tiny beads of ghee appear at the edge.",
+                "hi": "टमाटर गल गए हैं, कच्ची खट्टी गंध चली गई है और किनारे घी की छोटी बूँदें दिख रही हैं।"
+              },
+              {
+                "en": "A spatula drawn through the masala leaves a clean path for a second.",
+                "hi": "मसाले में कलछी चलाने पर एक सेकंड के लिए साफ़ रास्ता बनता है।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "masala-sticking",
+              "failure": {
+                "en": "The tomato masala is sticking",
+                "hi": "टमाटर मसाला तली में चिपक रहा है"
+              },
+              "clarify": {
+                "en": "Are the stuck bits golden brown or black?",
+                "hi": "चिपके टुकड़े सुनहरे-भूरे हैं या काले?"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "If they are golden, lower the heat and scrape with one tablespoon of water. If they are black and bitter, move the unburnt masala to a clean pan without scraping the black layer.",
+                  "hi": "टुकड़े सुनहरे हों तो आँच कम करके एक बड़ा चम्मच पानी डालकर खुरचो। काले और कड़वे हों तो काली परत छोड़े हुए ऊपर का मसाला साफ़ पैन में निकालो।"
+                },
+                "written": {
+                  "en": "Deglaze golden fond with 15 ml water. If burnt, transfer only the clean upper masala to another pan and adjust with a little fresh tomato.",
+                  "hi": "सुनहरी परत 15 मिली पानी से छुड़ाएँ। जली हो तो सिर्फ़ ऊपर का साफ़ मसाला दूसरे पैन में लें और थोड़ा ताज़ा टमाटर मिलाएँ।"
+                }
+              },
+              "photoPair": {
+                "recoverable": "/assets/recipes/dal-tadka/recovery/masala-golden-fond.webp",
+                "adjustRecipe": "/assets/recipes/dal-tadka/recovery/masala-burnt-base.webp"
+              }
+            },
+            {
+              "id": "tomato-still-raw",
+              "failure": {
+                "en": "The timer ended but the tomato still smells raw",
+                "hi": "टाइमर खत्म हुआ पर टमाटर अभी भी कच्चा महक रहा है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Add two tablespoons of water, cover for two minutes on medium-low, then uncover and bhuno until the ghee shows at the edge.",
+                  "hi": "दो बड़े चम्मच पानी डालो, मध्यम-धीमी आँच पर दो मिनट ढक दो, फिर खोलकर किनारे घी दिखने तक भूनो।"
+                },
+                "written": {
+                  "en": "Steam stubborn tomato with 30 ml water for 2 minutes, then uncover and reduce to the visual cue.",
+                  "hi": "सख्त टमाटर को 30 मिली पानी के साथ 2 मिनट भाप दें, फिर खोलकर बताए दृश्य संकेत तक भूनें।"
+                }
+              }
+            }
+          ],
+          "checkInIntervalSec": 45
+        },
+        {
+          "id": "combine-dal",
+          "n": 9,
+          "dependsOn": ["bhuno-tomato"],
+          "text": {
+            "en": "Lower the flame. Pour the mashed dal into the kadhai gradually while stirring, then rinse the cooker with the remaining water and add it.",
+            "hi": "आँच धीमी करें। मसल हुई दाल धीरे-धीरे कड़ाही में डालते हुए चलाएँ, फिर बचे पानी से कुकर धोकर वह पानी भी डालें।"
+          },
+          "spoken": {
+            "en": "Flame down first. Pour the dal in slowly and keep stirring so the hot tadka does not spit. Swirl the last water in the cooker and add that too.",
+            "hi": "पहले आँच धीमी। दाल धीरे डालते हुए चलाते रहो ताकि गरम तड़का छींटे न दे। बचा पानी कुकर में घुमाकर वह भी डाल दो।"
+          },
+          "durationSec": 120,
+          "attention": "active",
+          "risk": "normal",
+          "flameLevel": 2,
+          "cookwareNotes": {
+            "kadhai": {
+              "en": "Use a long-handled ladle and pour away from your body; dal can splutter when it meets hot fat.",
+              "hi": "लंबे हैंडल वाली कलछी लें और दाल शरीर से दूर दिशा में डालें; गरम घी से मिलते समय छींटे आ सकते हैं।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/09-dal-combined.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "The tadka is evenly streaked through the dal with no dry masala clumps at the base.",
+                "hi": "तड़का दाल में बराबर फैला है और तली में सूखे मसाले की गाँठें नहीं हैं।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "dal-spluttering",
+              "failure": {
+                "en": "The dal is spluttering while pouring",
+                "hi": "दाल डालते समय तेज़ छींटे आ रहे हैं"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Stop pouring, move the pan off the heat for ten seconds, then add the dal one ladle at a time while stirring from a distance.",
+                  "hi": "दाल डालना रोक दो, पैन दस सेकंड आँच से हटाओ, फिर दूर रहकर चलाते हुए एक-एक कलछी डालो।"
+                },
+                "written": {
+                  "en": "Temporarily remove from heat and combine in small ladlefuls. Return to low heat only after the fat and dal are emulsified.",
+                  "hi": "थोड़ी देर आँच से हटाकर एक-एक कलछी मिलाएँ। घी और दाल मिलने के बाद ही धीमी आँच पर लौटाएँ।"
+                }
+              }
+            },
+            {
+              "id": "masala-clumps",
+              "failure": {
+                "en": "There are dark masala clumps in the dal",
+                "hi": "दाल में मसाले की गहरी गाँठें हैं"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Press the clumps against the side with the ladle and whisk in a splash of warm water. Stop if they taste burnt rather than concentrated.",
+                  "hi": "गाँठों को कलछी से किनारे दबाओ और थोड़ा गरम पानी मिलाकर फेंटो। स्वाद जला हो, सिर्फ़ गाढ़ा नहीं, तो उन्हें निकाल दो।"
+                },
+                "written": {
+                  "en": "Break concentrated masala with 15–30 ml warm water. Remove any genuinely burnt fragments.",
+                  "hi": "गाढ़े मसाले को 15–30 मिली गरम पानी से खोलें। सच में जले टुकड़े निकाल दें।"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "final-simmer",
+          "n": 10,
+          "dependsOn": ["combine-dal"],
+          "text": {
+            "en": "Simmer uncovered on low for 5 minutes, stirring from the base every minute. Taste and adjust salt; the dal should remain pourable.",
+            "hi": "धीमी आँच पर बिना ढके 5 मिनट उबालें, हर मिनट तली से चलाएँ। चखकर नमक ठीक करें; दाल बहने लायक रहनी चाहिए।"
+          },
+          "spoken": {
+            "en": "Let it burble gently for five minutes. Give the base a scrape every minute. Then taste for salt—the dal should still pour, not sit like paste.",
+            "hi": "दाल को पाँच मिनट हल्का-हल्का उबलने दो। हर मिनट तली से चलाना। फिर नमक चखना—दाल बहनी चाहिए, पेस्ट जैसी नहीं बैठनी।"
+          },
+          "durationSec": 300,
+          "attention": "passive",
+          "risk": "high",
+          "flameLevel": 2,
+          "cookwareNotes": {
+            "kadhai": {
+              "en": "Steel retains heat; stir the corners and lower to level 1 if bubbles become forceful.",
+              "hi": "स्टील गर्मी रोकता है; कोनों तक चलाएँ और बुलबुले तेज़ हों तो स्तर 1 करें।"
+            },
+            "nonstick": {
+              "en": "Use the lowest steady simmer and a silicone spatula.",
+              "hi": "सबसे धीमा स्थिर उबाल रखें और सिलिकॉन कलछी लें।"
+            }
+          },
+          "refPhoto": "/assets/recipes/dal-tadka/steps/10-gentle-simmer.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "Small lazy bubbles break at the centre and the surface closes slowly after stirring.",
+                "hi": "बीच में छोटे धीमे बुलबुले फूटते हैं और चलाने के बाद सतह धीरे बंद होती है।"
+              },
+              {
+                "en": "A ladleful pours in a broad ribbon rather than dropping as a lump.",
+                "hi": "एक कलछी दाल चौड़ी धार में गिरती है, गाँठ की तरह नहीं।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "dal-boiling-over",
+              "failure": {
+                "en": "The dal is rising or boiling over",
+                "hi": "दाल ऊपर चढ़ रही है या बाहर आने वाली है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Move it off the heat now and stir until the foam falls. Return on the smallest burner at level one, uncovered.",
+                  "hi": "अभी पैन आँच से हटाओ और झाग बैठने तक चलाओ। सबसे छोटे बर्नर पर स्तर एक में बिना ढके वापस रखो।"
+                },
+                "written": {
+                  "en": "Remove from heat, stir down the foam, wipe spills safely, and resume uncovered at the lowest flame.",
+                  "hi": "आँच से हटाएँ, झाग चलाकर बैठाएँ, छलकी दाल सुरक्षित साफ़ करें और सबसे धीमी आँच पर बिना ढके पकाएँ।"
+                }
+              }
+            },
+            {
+              "id": "dal-thickened-too-far",
+              "failure": {
+                "en": "The dal became too thick during simmering",
+                "hi": "उबालते समय दाल बहुत गाढ़ी हो गई"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Stir in warm water two tablespoons at a time. Bring back just one gentle bubble, then stop cooking.",
+                  "hi": "दो-दो बड़े चम्मच गरम पानी मिलाओ। बस एक हल्का उबाल वापस आने दो, फिर पकाना बंद कर दो।"
+                },
+                "written": {
+                  "en": "Adjust with 30 ml warm water additions, reheat briefly, and stop at the broad-ribbon cue.",
+                  "hi": "30-30 मिली गरम पानी डालें, थोड़ी देर गरम करें और चौड़ी धार वाले संकेत पर रुकें।"
+                }
+              }
+            }
+          ],
+          "checkInIntervalSec": 60
+        },
+        {
+          "id": "finish-garnish",
+          "n": 11,
+          "dependsOn": ["final-simmer"],
+          "text": {
+            "en": "Turn off the heat. Stir in lemon juice and coriander, rest for 2 minutes, then serve.",
+            "hi": "आँच बंद करें। नींबू का रस और हरा धनिया मिलाएँ, 2 मिनट आराम दें, फिर परोसें।"
+          },
+          "spoken": {
+            "en": "Heat off. Lemon and coriander go in now. Give the dal two quiet minutes, then it is ready for the table.",
+            "hi": "आँच बंद। अब नींबू और हरा धनिया मिलाओ। दाल को दो मिनट चुपचाप रहने दो, फिर यह परोसने के लिए तैयार है।"
+          },
+          "durationSec": 120,
+          "attention": "active",
+          "risk": "normal",
+          "flameLevel": 1,
+          "refPhoto": "/assets/recipes/dal-tadka/steps/11-finished-dal.webp",
+          "doneness": {
+            "cues": [
+              {
+                "en": "The dal is glossy, pourable, and smells first of cumin and ghee, then fresh lemon and coriander.",
+                "hi": "दाल चमकदार और बहने लायक है; पहले जीरा-घी, फिर ताज़ा नींबू और धनिया महकते हैं।"
+              }
+            ]
+          },
+          "recoveryTree": [
+            {
+              "id": "dal-too-salty",
+              "failure": {
+                "en": "The finished dal tastes too salty",
+                "hi": "तैयार दाल बहुत नमकीन लग रही है"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Add a quarter cup of hot water and two tablespoons of plain cooked dal if you have it. Simmer for two minutes, then retaste before adding any lemon.",
+                  "hi": "चौथाई कप गरम पानी और अगर हो तो दो बड़े चम्मच सादी पकी दाल मिलाओ। दो मिनट उबालो, फिर नींबू डालने से पहले दोबारा चखो।"
+                },
+                "written": {
+                  "en": "Dilute with 60 ml hot water and unsalted cooked dal when available. Rebalance gradually; potato does not reliably remove salt.",
+                  "hi": "60 मिली गरम पानी और उपलब्ध हो तो बिना नमक की पकी दाल मिलाएँ। धीरे संतुलित करें; आलू नमक भरोसेमंद तरीके से नहीं खींचता।"
+                }
+              }
+            },
+            {
+              "id": "dal-too-sour",
+              "failure": {
+                "en": "The lemon made the dal too sour",
+                "hi": "नींबू से दाल बहुत खट्टी हो गई"
+              },
+              "fix": {
+                "spoken": {
+                  "en": "Stir in a little more plain dal or hot water and one teaspoon of ghee. Warm gently; do not add sugar unless you want a sweet note.",
+                  "hi": "थोड़ी सादी दाल या गरम पानी और एक छोटा चम्मच घी मिलाओ। हल्का गरम करो; मीठा स्वाद न चाहिए तो चीनी मत डालना।"
+                },
+                "written": {
+                  "en": "Dilute with plain dal or 30–60 ml water, then round the acidity with 5 ml ghee and a brief warm-through.",
+                  "hi": "सादी दाल या 30–60 मिली पानी मिलाएँ, फिर 5 मिली घी डालकर हल्का गरम करें।"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "photographyManifest": {
+        "stockPhotographyAllowed": false,
+        "shootStatus": "planned",
+        "consistencyGuide": {
+          "angle": {
+            "en": "Camera fixed 55 degrees above the work surface, with the pan handle at four o'clock.",
+            "hi": "कैमरा काम की सतह से 55 डिग्री ऊपर स्थिर रहे और पैन का हैंडल चार बजे की दिशा में हो।"
+          },
+          "vessel": {
+            "en": "Use the same brushed-steel pressure cooker and 22 cm dark-seasoned steel kadhai in every stage.",
+            "hi": "हर चरण में वही ब्रश्ड-स्टील प्रेशर कुकर और 22 सेमी की गहरी सीज़न्ड स्टील कड़ाही लें।"
+          },
+          "light": {
+            "en": "Soft daylight from camera-left at 5000K; lock exposure and white balance for the whole shoot.",
+            "hi": "कैमरे के बाएँ से 5000K की नरम दिन की रोशनी; पूरे शूट में एक्सपोज़र और व्हाइट बैलेंस लॉक रखें।"
+          },
+          "background": {
+            "en": "Matte terracotta worktop with one folded unbleached cotton cloth; no decorative ingredient scatter.",
+            "hi": "मैट टेराकोटा सतह पर एक तह किया बिना ब्लीच का सूती कपड़ा; सजावट के लिए सामग्री न बिखेरें।"
+          }
+        },
+        "hero": {
+          "src": "/assets/recipes/dal-tadka/hero.webp",
+          "alt": {
+            "en": "Finished golden dal tadka in a steel serving bowl with a visible cumin and garlic tempering",
+            "hi": "स्टील के कटोरे में तैयार सुनहरी दाल तड़का, ऊपर जीरा और लहसुन का तड़का दिखता हुआ"
+          },
+          "width": 1600,
+          "height": 1200
+        },
+        "stages": [
+          {
+            "stepId": "pressure-cook-dal",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/01-cooker-loaded.webp",
+              "alt": {
+                "en": "Rinsed dal, water and turmeric below the halfway mark in an open pressure cooker",
+                "hi": "खुले प्रेशर कुकर में आधे निशान से नीचे धुली दाल, पानी और हल्दी"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Show the safe fill level and clear vent before the lid is locked.",
+              "hi": "ढक्कन बंद होने से पहले सुरक्षित भराव स्तर और साफ़ वेंट दिखाएँ।"
+            }
+          },
+          {
+            "stepId": "low-simmer-cooker",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/02-low-simmer.webp",
+              "alt": {
+                "en": "Pressure cooker on the smallest stable blue flame after three whistles",
+                "hi": "तीन सीटी के बाद सबसे छोटी स्थिर नीली लौ पर रखा प्रेशर कुकर"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Frame the burner so the genuinely low flame is visible.",
+              "hi": "फ्रेम में बर्नर रखें ताकि सच में धीमी लौ दिखे।"
+            }
+          },
+          {
+            "stepId": "release-pressure",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/03-pressure-released.webp",
+              "alt": {
+                "en": "Pressure cooker with the heat off and pressure pin fully lowered",
+                "hi": "बंद आँच पर प्रेशर पिन पूरी तरह नीचे आया हुआ कुकर"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Make the fully lowered pressure indicator unmistakable.",
+              "hi": "पूरी तरह नीचे आया प्रेशर इंडिकेटर साफ़ दिखाएँ।"
+            }
+          },
+          {
+            "stepId": "adjust-dal",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/04-mashed-consistency.webp",
+              "alt": {
+                "en": "Soft mashed dal falling from a ladle in a thick continuous ribbon",
+                "hi": "कलछी से मोटी लगातार धार में गिरती नरम मसली दाल"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Freeze the broad ribbon against the darker cooker interior.",
+              "hi": "गहरे कुकर के सामने दाल की चौड़ी धार साफ़ पकड़ें।"
+            }
+          },
+          {
+            "stepId": "crackle-cumin",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/05-cumin-crackle.webp",
+              "alt": {
+                "en": "Medium-brown cumin seeds actively bubbling in hot ghee",
+                "hi": "गरम घी में बुलबुलों के साथ चटकता मध्यम-भूरा जीरा"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Capture medium brown seeds before any seed turns black.",
+              "hi": "किसी भी दाने के काला होने से पहले मध्यम-भूरा रंग पकड़ें।"
+            }
+          },
+          {
+            "stepId": "saute-onion",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/06-onion-golden.webp",
+              "alt": {
+                "en": "Soft translucent onion with scattered golden edges in the kadhai",
+                "hi": "कड़ाही में नरम पारदर्शी प्याज़ जिसके कुछ किनारे सुनहरे हैं"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Keep both translucent centres and golden edges visible.",
+              "hi": "पारदर्शी बीच और सुनहरे किनारे दोनों साफ़ दिखाएँ।"
+            }
+          },
+          {
+            "stepId": "bloom-aromatics",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/07-aromatics-pale-gold.webp",
+              "alt": {
+                "en": "Pale-gold garlic with ginger and slit green chilli in the onion tadka",
+                "hi": "प्याज़ के तड़के में हल्का सुनहरा लहसुन, अदरक और चीरी हरी मिर्च"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "The garlic must read pale gold, never deep brown.",
+              "hi": "लहसुन हल्का सुनहरा दिखे, कभी गहरा भूरा नहीं।"
+            }
+          },
+          {
+            "stepId": "bhuno-tomato",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/08-tomato-bhuno.webp",
+              "alt": {
+                "en": "Jammy red tomato masala with tiny beads of ghee at the edge",
+                "hi": "जैम जैसा लाल टमाटर मसाला जिसके किनारे घी की छोटी बूँदें हैं"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Show the spatula trail and the first clear ghee separation together.",
+              "hi": "कलछी का साफ़ रास्ता और पहली घी की अलग बूँदें एक साथ दिखाएँ।"
+            }
+          },
+          {
+            "stepId": "combine-dal",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/09-dal-combined.webp",
+              "alt": {
+                "en": "Mashed dal being folded through the red tadka without dry clumps",
+                "hi": "लाल तड़के में मिलती मसली दाल, बिना सूखी गाँठों के"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Leave one visible red-gold swirl to explain the mixing stage.",
+              "hi": "मिलाने का चरण समझाने के लिए एक लाल-सुनहरी लकीर दिखती रहने दें।"
+            }
+          },
+          {
+            "stepId": "final-simmer",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/10-gentle-simmer.webp",
+              "alt": {
+                "en": "Small lazy bubbles breaking at the centre of glossy dal",
+                "hi": "चमकदार दाल के बीच में फूटते छोटे धीमे बुलबुले"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Capture a few central bubbles, not a violent full-pan boil.",
+              "hi": "बीच के कुछ बुलबुले पकड़ें, पूरे पैन का तेज़ उबाल नहीं।"
+            }
+          },
+          {
+            "stepId": "finish-garnish",
+            "image": {
+              "src": "/assets/recipes/dal-tadka/steps/11-finished-dal.webp",
+              "alt": {
+                "en": "Glossy finished dal with fresh coriander and a visible cumin-garlic tadka",
+                "hi": "ताज़े धनिए और दिखते जीरा-लहसुन तड़के के साथ चमकदार तैयार दाल"
+              },
+              "width": 1200,
+              "height": 900
+            },
+            "status": "planned",
+            "cue": {
+              "en": "Show natural gloss and pourable body; do not over-style the bowl.",
+              "hi": "प्राकृतिक चमक और बहने लायक गाढ़ापन दिखाएँ; कटोरे को ज़्यादा न सजाएँ।"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

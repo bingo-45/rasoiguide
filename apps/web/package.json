@@ -1,0 +1,36 @@
+{
+  "name": "@rasoiguide/web",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/fraunces": "^5.2.5",
+    "@fontsource/mukta": "^5.2.5",
+    "@fontsource/tiro-devanagari-hindi": "^5.2.5",
+    "@rasoiguide/content-schema": "workspace:*",
+    "@rasoiguide/audio-dsp": "workspace:*",
+    "@rasoiguide/scheduler": "workspace:*",
+    "@rasoiguide/voice": "workspace:*",
+    "dexie": "^4.0.11",
+    "intl-messageformat": "^10.7.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "xstate": "^5.19.2",
+    "workbox-window": "^7.3.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14",
+    "vite-plugin-pwa": "^0.21.1"
+  }
+}
