@@ -96,7 +96,7 @@ export function RecipeVisual({ recipe, stage, compact = false, photo, caption }:
         <img
           src={`${import.meta.env.BASE_URL}photos/${photoId}.jpg`}
           alt={`${recipe.title.en}: ${caption ?? stage ?? "finished dish"}`}
-          loading="lazy"
+          loading={compact ? "lazy" : "eager"}
           onError={(event) => { (event.currentTarget.parentElement as HTMLElement).classList.add("is-missing"); }}
         />
         <span className="recipe-photo__sheen" aria-hidden="true" />

@@ -1,6 +1,25 @@
 # RasoiGuide v2
 
+**Live app: https://bingo-45.github.io/rasoiguide/** (free GitHub Pages hosting)
+
 RasoiGuide is a local-first, bilingual cooking companion built for a noisy Indian kitchen: big touch targets, Hinglish voice commands, power-cut-safe resume, pressure-cooker whistle counting, authored recovery help, and parallel Thali planning. It is an installable React PWA with no account, backend, cookies, analytics, or recurring infrastructure cost.
+
+## New in v2.1
+
+- **Real photography everywhere** — every dish and every cooking step shows a real, openly-licensed photograph (Wikimedia Commons; attributions in [docs/PHOTO_CREDITS.md](docs/PHOTO_CREDITS.md) and in Settings → Photo credits). No AI images, no CSS-drawn food.
+- **Step reference photos** — each timeline step shows "how it should look right now".
+- **Always-visible timer** — big countdown dial per step plus +1/+5/+10 minute quick timers on every step.
+- **Check my dish** — photograph your pot and compare it side-by-side with the reference; an on-device colour-histogram match score (nothing ever uploaded).
+- **Hands-free voice assistant** — continuous listening mode in Hindi and English; speak "agla step", "kitna time bacha", "kuch gadbad hai" without touching the phone.
+- **Six more North Indian recipes** — Rajma, Kadhi Pakora, Chole Masala, Palak Paneer, Paneer Butter Masala, Bhindi Masala (fully trilingual: English / हिंदी / Hinglish).
+- **Real liquid glass** — layered backdrop blur, saturation, and specular rims on nav, docks, and panels.
+
+### Deploying (free)
+
+```bash
+VITE_BASE=/rasoiguide/ pnpm --filter @rasoiguide/web build
+# push apps/web/dist (plus 404.html copy of index.html) to the gh-pages branch
+```
 
 ## Start in two commands
 
